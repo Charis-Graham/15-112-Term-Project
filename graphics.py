@@ -7,7 +7,7 @@ from cmu_112_graphics import *
 #initializes the graphics for the elephant walking 
 def elephantWalk(app):
     #loads in the elephant image
-    app.elephantImage = app.loadImage('elephant.png')
+    app.elephantImage = app.loadImage('images/elephant.png')
     elephantWalk = app.elephantImage
 
     #builds the elephant walking left animation
@@ -19,13 +19,13 @@ def elephantWalk(app):
     #builds the elephant walking right animation
     app.elephantWalkRight = []
     for frame in range(3):
-        elephantStepRight = elephantWalk.crop((100*frame, 200, 96+100*frame,300))
+        elephantStepRight = elephantWalk.crop((100*frame, 200, 90+100*frame,300))
         app.elephantWalkRight.append(elephantStepRight)
     
     #builds the elephant walking down animation
     app.elephantWalkDown = []
     for frame in range(3):
-        elephantDownStep = elephantWalk.crop((100*frame, 0, 100+100*frame, 100))
+        elephantDownStep = elephantWalk.crop((100*frame, 0, 96+100*frame, 100))
         app.elephantWalkDown.append(elephantDownStep)
 
     #builds the elephant walking up animation
