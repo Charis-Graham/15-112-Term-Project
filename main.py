@@ -1,5 +1,6 @@
 #6:40 - 7:32pm
-#7:45 - pm
+#7:45 - 8:28pm
+
 
 from cmu_112_graphics import *
 from graphics import *

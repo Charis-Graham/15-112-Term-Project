@@ -25,14 +25,14 @@ def elephantWalk(app):
     #builds the elephant walking down animation
     app.elephantWalkDown = []
     for frame in range(3):
-        elephantDownStep = elephantWalk.crop((100*frame, 0, 96+100*frame, 100))
+        elephantDownStep = elephantWalk.crop((100*frame, 0, 100+100*frame, 100))
         app.elephantWalkDown.append(elephantDownStep)
 
     #builds the elephant walking up animation
     app.elephantWalkUp = []
     for frame in range(3):
         elephantUpStep = elephantWalk.crop((100*frame, 300, 96+100*frame, 400))
-        app.elephantWalkDown.append(elephantUpStep)
+        app.elephantWalkUp.append(elephantUpStep)
 
     #initializes the elephant state of the elephant moving as false
     app.elephantMoveLeft = True
