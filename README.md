@@ -10,6 +10,6 @@ Created by lawnjelly & Jordan Irwin (AntumDeluge)
 Under CC-BY-SA 3.0
 Created by Modanung 
 
-#Gress PNGs come from https://opengameart.org/content/grass-texture-pack
+#Grass PNGs come from https://opengameart.org/content/grass-texture-pack
 Under CC0
 Created by Proxy Games

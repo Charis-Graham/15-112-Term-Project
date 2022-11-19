@@ -1,4 +1,5 @@
 from cmu_112_graphics import *
+import random
 
 #ELEPHANT
 
@@ -72,5 +73,12 @@ def drawElephantWalking(app, canvas):
 #WATER
 
 #GRASS
-def tesalationGrassGround(app):
-    pass
+def tessellationGrassGround(app):
+    #based on Eli Courtwright's answer on
+    #https://stackoverflow.com/questions/1060090/changing-variable-names-with-python-for-loops
+    #creates a dictionary with the five grass tiles
+    grassImages = {}
+    for panel in range(1, 6):
+        app.grassImage["grass"+str(panel)] = app.loadImage(f'images/grass/grass{panel}.jpg')
+    
+    
