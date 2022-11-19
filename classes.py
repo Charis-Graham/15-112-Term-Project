@@ -1,5 +1,6 @@
 class Elephant(object):
-    pass
+    def __init__(self):
+        pass
 
 class WateringHole(object):
     pass
