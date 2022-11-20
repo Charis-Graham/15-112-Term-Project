@@ -12,7 +12,6 @@
  ---> tree becomes duller and disappears
 '''
 
-
 from cmu_112_graphics import *
 from graphics import *
 from elephantPlayer import *
