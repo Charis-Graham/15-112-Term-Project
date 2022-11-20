@@ -128,7 +128,7 @@ class WateringHole(object):
                                     2*(self.imageHeight//3.3)))
 
     def drawWater(self, app, canvas):
-        canvas.create_image(400, 400,image=ImageTk.PhotoImage(self.image))
+        canvas.create_image(300, 300,image=ImageTk.PhotoImage(self.image))
 
 class Tree(object):
     def __init__(self, leafLevel):

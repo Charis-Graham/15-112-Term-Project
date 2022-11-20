@@ -17,15 +17,8 @@ from elephantPlayer import *
 from classes import *
 
 def appStarted(app):
-    #draws the ground
-    #Grass PNGs come from https://opengameart.org/content/grass-texture-pack
-    #Under CC0
-    #Created by Proxy Games
-    app.grassImage = app.loadImage(f"images/grass/grass3.jpg")
-    app.grassImage = app.scaleImage(app.grassImage, 5)
-    sizeIm = app.grassImage.size
-    app.grassImageHeight = sizeIm[1]
-    app.grassImageWidth = sizeIm[0]
+    #draw grass
+    grass(app)
 
     #draws a tree
     app.tree = Tree(100)
@@ -44,7 +37,9 @@ def appStarted(app):
 def keyPressed(app, event):
     #controls the player moving
     playerMove(app, event)
-    
+
+def keyReleased(app, event):
+    app.messages.append('keyReleased: ' + event.key)
 
 def timerFired(app):
     #this runs through the sprite to have the elephant walk at a constant pace
@@ -68,4 +63,4 @@ def redrawAll(app, canvas):
     else:
         app.player.drawElephantWalk(app, canvas)
 
-runApp(width = 600, height = 600)
+runApp(width = 400, height = 400)
