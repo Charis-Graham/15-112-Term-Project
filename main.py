@@ -39,7 +39,7 @@ def keyPressed(app, event):
     playerMove(app, event)
 
 def keyReleased(app, event):
-    app.messages.append('keyReleased: ' + event.key)
+    playerStill(app, event)
 
 def timerFired(app):
     #this runs through the sprite to have the elephant walk at a constant pace

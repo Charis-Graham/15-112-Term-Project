@@ -35,3 +35,10 @@ def playerMove(app, event):
         app.player.elephantMoveDown = False
         app.player.elephantMoveLeft = False
         app.player.elephantMoveRight = False
+
+def playerStill(app, event):
+    if event.key in ["Right", "Left", "Up", "Down"]:
+        app.player.elephantMoveLeft = False
+        app.player.elephantMoveRight = False
+        app.player.elephantMoveDown = False
+        app.player.elephantMoveUp = False
