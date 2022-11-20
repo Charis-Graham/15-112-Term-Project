@@ -119,12 +119,17 @@ class Elephant(object):
         if (self.travel >= 5 and healthMetrics[0] > 0 or 
                 healthMetrics[1] > 0 or healthMetrics[2] > 0):
             healthMetrics[random.randint(0,2)] -= 5
-            print(healthMetrics)
         else:
             self.elephantMoveLeft = False
             self.elephantMoveRight = False
             self.elephantMoveDown = False
             self.elephantMoveUp = False
+    
+    #for when the herd is further fleshed out, will be one of the functions of bonding
+    def elephantShareFood(self, other):
+        if self.hitBox.overlap(other):
+            self.energy -= 5
+            other.energy += 5
 
 class WateringHole(object):
     def __init__(self, app, waterLevel):
@@ -224,3 +229,7 @@ class hitBox(object):
         #returns a tuple with a rectangular box value for the hitbox
         return (self.imgX, self.imgY, self.imgX + self.imgWidth, 
                     self.imgY+self.imgHeight)
+    
+    #will determine if two hitboxes are overlapping
+    def overlap(self, other):
+        pass

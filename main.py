@@ -24,6 +24,9 @@ def appStarted(app):
 def keyPressed(app, event):
     #controls the player moving
     playerMove(app, event)
+
+    #to be removed later, these are controls to test certain unfinished 
+    #elements of water and tree classes
     if event.key == "t":
         app.tree.randomTreeSpawn(app)
     elif event.key == "w":
@@ -34,6 +37,7 @@ def keyPressed(app, event):
         app.tree.goLeaves(app)
 
 def keyReleased(app, event):
+    #controls what happens when the elephant is still
     playerStill(app, event)
 
 def timerFired(app):
