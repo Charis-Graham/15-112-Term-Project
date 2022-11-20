@@ -11,6 +11,7 @@ def grass(app):
     app.grassImageHeight = sizeIm[1]
     app.grassImageWidth = sizeIm[0]
 
+#draws the background of the game
 def drawGround(app, canvas):
     for dw in range(0, app.width, 20):
         for dh in range(0, app.height, 20):

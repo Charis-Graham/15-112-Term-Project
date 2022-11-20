@@ -9,6 +9,7 @@ def playerMove(app, event):
         app.player.elephantMoveUp = False
 
         app.player.imageX -= 5
+        app.player.travel += 5
     elif event.key == "Right":
         app.player.elephantMoveRight = True
         app.player.elephantMoveLeft = False
@@ -16,6 +17,7 @@ def playerMove(app, event):
         app.player.elephantMoveUp = False
 
         app.player.imageX += 5
+        app.player.travel += 5
     elif event.key == "Down":
         app.player.elephantMoveDown = True
         app.player.elephantMoveLeft = False
@@ -23,6 +25,7 @@ def playerMove(app, event):
         app.player.elephantMoveUp = False
 
         app.player.imageY += 5
+        app.player.travel += 5
     elif event.key == "Up":
         app.player.elephantMoveUp = True
         app.player.elephantMoveDown = False
@@ -30,11 +33,7 @@ def playerMove(app, event):
         app.player.elephantMoveRight = False
 
         app.player.imageY -= 5
-    else:
-        app.player.elephantMoveUp = False
-        app.player.elephantMoveDown = False
-        app.player.elephantMoveLeft = False
-        app.player.elephantMoveRight = False
+        app.player.travel += 5
 
 def playerStill(app, event):
     if event.key in ["Right", "Left", "Up", "Down"]:

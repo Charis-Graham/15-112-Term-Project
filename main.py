@@ -1,16 +1,3 @@
-#6:40 - 7:32pm, 52 min
-#7:45 - 8:46pm, 1 hr, 1 min
-#9:05 - 10:00pm, 55 min
-#1:30 - 1:48am
-#1:50 - 2:50am 1 hr 18 min
-#11:15 - 5:45 5hr 30 min
-
-'''Goals for tomorrow:
-- work on interaction of elephant with surroundings
- ---> the water becomes more muddy color
- ---> tree becomes duller and disappears
-'''
-
 from cmu_112_graphics import *
 from graphics import *
 from elephantPlayer import *
@@ -37,6 +24,10 @@ def appStarted(app):
 def keyPressed(app, event):
     #controls the player moving
     playerMove(app, event)
+    if event.key == "t":
+        app.tree.randomTreeSpawn(app)
+    elif event.key == "w":
+        app.water.randomWaterSpawn(app)
 
 def keyReleased(app, event):
     playerStill(app, event)
@@ -62,5 +53,6 @@ def redrawAll(app, canvas):
         app.player.drawElephantStill(app, canvas)
     else:
         app.player.drawElephantWalk(app, canvas)
+        app.player.elephantWeaken()
 
 runApp(width = 400, height = 400)

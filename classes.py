@@ -1,4 +1,6 @@
 from cmu_112_graphics import *
+from elephantPlayer import *
+import random
 
 class Elephant(object):
     def __init__(self, app, lifeState, hunger, thirst, energy):
@@ -7,6 +9,7 @@ class Elephant(object):
         self.hunger = hunger
         self.thirst = thirst
         self.energy = energy
+        self.travel = 0
 
         #determines what direction the elephant is moving
         #loads in the elephant image
@@ -34,6 +37,9 @@ class Elephant(object):
         self.imageWidth = 0
         self.imageX = app.width//2
         self.imageY = app.height//2
+
+        self.hitBox = hitBox(self.imageWidth, self.imageHeight, 
+                            self.imageX, self.imageY)
     
     def elephantStandStill(self, app):
         self.elephantStill = self.image
@@ -43,6 +49,11 @@ class Elephant(object):
         self.elephantStill = self.elephantStill.crop(((self.imageWidth//3, 0, 
                                     2*(self.imageWidth//3), 
                                     self.imageHeight//4)))
+        stillSize = self.elephantStill.size
+        stillImageHeight = sizeIm[1]
+        stillImageWidth = sizeIm[0]
+        self.hitBox = hitBox(stillImageHeight, stillImageWidth, 
+                            self.imageX, self.imageY)
     
     def drawElephantStill(self, app, canvas):
         canvas.create_image(self.imageX, 
@@ -103,6 +114,18 @@ class Elephant(object):
         canvas.create_image(self.imageX, self.imageY, 
                             image=ImageTk.PhotoImage(elephant))
 
+    def elephantWeaken(self):
+        healthMetrics = [self.hunger, self.thirst, self.energy]
+        if (self.travel >= 5 and healthMetrics[0] > 0 or 
+                healthMetrics[1] > 0 or healthMetrics[2] > 0):
+            healthMetrics[random.randint(0,2)] -= 5
+            print(healthMetrics)
+        else:
+            self.elephantMoveLeft = False
+            self.elephantMoveRight = False
+            self.elephantMoveDown = False
+            self.elephantMoveUp = False
+
 class WateringHole(object):
     def __init__(self, app, waterLevel):
         self.waterLevel = waterLevel
@@ -110,6 +133,7 @@ class WateringHole(object):
         self.image = ''
         self.imageHeight = 0
         self.imageWidth = 0
+        self.X, self.Y = 300, 300
         
     def waterImage(self, app):
         #loads the image
@@ -127,8 +151,13 @@ class WateringHole(object):
                                     self.imageWidth//2,
                                     2*(self.imageHeight//3.3)))
 
+    def randomWaterSpawn(self, app):
+        self.X = random.randint(0, app.width)
+        self.Y = random.randint(0, app.height)
+            
+
     def drawWater(self, app, canvas):
-        canvas.create_image(300, 300,image=ImageTk.PhotoImage(self.image))
+        canvas.create_image(self.X, self.Y,image=ImageTk.PhotoImage(self.image))
 
 class Tree(object):
     def __init__(self, leafLevel):
@@ -136,6 +165,7 @@ class Tree(object):
         self.image = ''
         self.imageHeight = 0
         self.imageWidth = 0
+        self.X, self.Y = 100, 100
     
     def treeImage(self, app):
         #Tree PNG comes from https://opengameart.org/content/savannah-tiles 
@@ -147,4 +177,22 @@ class Tree(object):
         self.imageWidth = sizeIm[0]
 
     def drawTree(self, app, canvas):
-        canvas.create_image(100, 100, image=ImageTk.PhotoImage(self.image))
+        canvas.create_image(self.X, self.Y, image=ImageTk.PhotoImage(self.image))
+    
+    def randomTreeSpawn(self, app):
+        self.X = random.randint(0, app.width)
+        self.Y = random.randint(0, app.height)
+
+#class to be used as a hitbox to determine when elements are interacting
+class hitBox(object):
+    def __init__(self, imgWidth, imgHeight, imgX, imgY):
+        self.imgWidth = imgWidth
+        self.imgHeight = imgHeight
+        self.imgX = imgX
+        self.imgY = imgY
+
+    #defines the parameters of a hitbox for a given sprite
+    def makeHitBox(self):
+        #returns a tuple with a rectangular box value for the hitbox
+        return (self.imgX, self.imgY, self.imgX + self.imgWidth, 
+                    self.imgY+self.imgHeight)
