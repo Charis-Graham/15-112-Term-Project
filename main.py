@@ -14,6 +14,7 @@ def appStarted(app):
     elephantWalk(app)
     tessellationGrassGround(app)
     tree(app)
+    water(app)
 
 def keyPressed(app, event):
     #controls the player moving
@@ -31,5 +32,6 @@ def redrawAll(app, canvas):
     drawGround(app, canvas)
     drawElephantWalking(app, canvas)
     drawTree(app, canvas)
+    drawWater(app, canvas)
 
 runApp(width = 400, height = 400)

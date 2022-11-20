@@ -78,9 +78,13 @@ def drawTree(app, canvas):
 #WATER
 def water(app):
     app.waterImage = app.loadImage("images/water.png")
+    app.waterImage = app.waterImage.crop((0, 
+                                        app.height//5.7, 
+                                        app.width//4.7,
+                                        2.2*(app.height//5.7)))
 
 def drawWater(app, canvas):
-    canvas.create_image(100, 100,image=ImageTk.PhotoImage(app.treeImage))
+    canvas.create_image(300, 300,image=ImageTk.PhotoImage(app.waterImage))
 
 
 #GRASS
@@ -93,5 +97,5 @@ def tessellationGrassGround(app):
 def drawGround(app, canvas):
     for dw in range(0, app.width, 20):
         for dh in range(0, app.height, 20):
-            randInd = random.randint(0, 4)
+            randInd = random.randint(2, 2)
             canvas.create_image(dw,dh,image=ImageTk.PhotoImage(app.grass[randInd]))
