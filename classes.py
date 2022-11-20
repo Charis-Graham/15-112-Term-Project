@@ -135,6 +135,7 @@ class WateringHole(object):
         self.imageWidth = 0
         self.X, self.Y = 300, 300
         
+    #crops the water image
     def waterImage(self, app):
         #loads the image
         #Water PNG comes from https://opengameart.org/content/lpc-animated-water-and-fire 
@@ -151,13 +152,26 @@ class WateringHole(object):
                                     self.imageWidth//2,
                                     2*(self.imageHeight//3.3)))
 
+    #generates a random new coordinate for the water
     def randomWaterSpawn(self, app):
         self.X = random.randint(0, app.width)
         self.Y = random.randint(0, app.height)
             
-
+    #draws the water on the canvas
     def drawWater(self, app, canvas):
         canvas.create_image(self.X, self.Y,image=ImageTk.PhotoImage(self.image))
+
+    #inspired by getPixel, putPixel example from 
+    #https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#events 
+    def goMuddy(self, app):
+        oldImage = self.image.convert("RGB")
+        recolorImage = Image.new(mode="RGB", size=self.image.size)
+        for x in range(recolorImage.width):
+            for y in range(recolorImage.height):
+                r,g,b = oldImage.getpixel((x,y))
+                recolorImage.putpixel((x,y), (r, g, 0))
+        self.image = recolorImage
+    
 
 class Tree(object):
     def __init__(self, leafLevel):
@@ -167,6 +181,7 @@ class Tree(object):
         self.imageWidth = 0
         self.X, self.Y = 100, 100
     
+    #crops the tree image
     def treeImage(self, app):
         #Tree PNG comes from https://opengameart.org/content/savannah-tiles 
         #Under CC-BY-SA 3.0
@@ -176,12 +191,25 @@ class Tree(object):
         self.imageHeight = sizeIm[1]
         self.imageWidth = sizeIm[0]
 
+    #draws the tree image
     def drawTree(self, app, canvas):
         canvas.create_image(self.X, self.Y, image=ImageTk.PhotoImage(self.image))
     
+    #allows for random placement of the image
     def randomTreeSpawn(self, app):
         self.X = random.randint(0, app.width)
         self.Y = random.randint(0, app.height)
+    
+    #inspired by getPixel, putPixel example from 
+    #https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#events 
+    def goLeaves(self, app):
+        oldImage = self.image.convert("RGB")
+        recolorImage = Image.new(mode="RGB", size=self.image.size)
+        for x in range(recolorImage.width):
+            for y in range(recolorImage.height):
+                r,g,b = oldImage.getpixel((x,y))
+                recolorImage.putpixel((x,y), (r, g, 0))
+        self.image = recolorImage
 
 #class to be used as a hitbox to determine when elements are interacting
 class hitBox(object):

@@ -28,6 +28,10 @@ def keyPressed(app, event):
         app.tree.randomTreeSpawn(app)
     elif event.key == "w":
         app.water.randomWaterSpawn(app)
+    elif event.key == "r":
+        app.water.goMuddy(app)
+    elif event.key == "l":
+        app.tree.goLeaves(app)
 
 def keyReleased(app, event):
     playerStill(app, event)
