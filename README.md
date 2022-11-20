@@ -16,4 +16,4 @@ Created by Proxy Games
 
 #Water PNG comes from https://opengameart.org/content/lpc-animated-water-and-fire 
 Under CC-BY 3.0
-Creaated by Sharm
+Created by Sharm

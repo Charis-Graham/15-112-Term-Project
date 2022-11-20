@@ -6,8 +6,6 @@
 #11:15 - 5:45 5hr 30 min
 
 '''Goals for tomorrow:
-- finish moving stuff into classes
-- work on elephant image and readjusting the things to be done on height of img
 - work on movement for elephant
 - work on interaction of elephant with surroundings
  ---> the water becomes more muddy color
@@ -22,15 +20,22 @@ from classes import *
 
 def appStarted(app):
     #draws the ground
-    tessellationGrassGround(app)
+    #Grass PNGs come from https://opengameart.org/content/grass-texture-pack
+    #Under CC0
+    #Created by Proxy Games
+    app.grassImage = app.loadImage(f"images/grass/grass3.jpg")
+    app.grassImage = app.scaleImage(app.grassImage, 5)
     #draws a tree
-    tree(app)
-    #draws water
-    water(app)
+    app.tree = Tree(100)
+    app.tree.treeImage(app)
+    #creates an element of class water
     app.water = WateringHole(app, 100)
+    app.water.waterImage(app)
     #creates a player of class elephant
-    app.player = Elephant("baby", 100, 100, 100)
+    app.player = Elephant(app, "baby", 100, 100, 100)
+    #initializes the animations for walking and standing still
     app.player.elephantWalking(app)
+    app.player.elephantStandStill(app)
 
 def keyPressed(app, event):
     #controls the player moving
@@ -47,10 +52,16 @@ def redrawAll(app, canvas):
     #draws the ground
     drawGround(app, canvas)
     #draws a tree
-    drawTree(app, canvas)
-    #draws water
-    drawWater(app, canvas)
+    app.tree.drawTree(app, canvas)
+    #draw water
+    app.water.drawWater(app, canvas)
     #draws the player elephant
-    app.player.drawElephantWalk(app, canvas)
+    if (app.player.elephantMoveLeft == False and 
+        app.player.elephantMoveDown == False and
+        app.player.elephantMoveRight == False and 
+        app.player.elephantMoveUp == False):
+        app.player.drawElephantStill(app, canvas)
+    else:
+        app.player.drawElephantWalk(app, canvas)
 
-runApp(width = 400, height = 400)
+runApp(width = 600, height = 600)
