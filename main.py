@@ -6,7 +6,6 @@
 #11:15 - 5:45 5hr 30 min
 
 '''Goals for tomorrow:
-- work on movement for elephant
 - work on interaction of elephant with surroundings
  ---> the water becomes more muddy color
  ---> tree becomes duller and disappears
@@ -24,12 +23,18 @@ def appStarted(app):
     #Created by Proxy Games
     app.grassImage = app.loadImage(f"images/grass/grass3.jpg")
     app.grassImage = app.scaleImage(app.grassImage, 5)
+    sizeIm = app.grassImage.size
+    app.grassImageHeight = sizeIm[1]
+    app.grassImageWidth = sizeIm[0]
+
     #draws a tree
     app.tree = Tree(100)
     app.tree.treeImage(app)
+
     #creates an element of class water
     app.water = WateringHole(app, 100)
     app.water.waterImage(app)
+
     #creates a player of class elephant
     app.player = Elephant(app, "baby", 100, 100, 100)
     #initializes the animations for walking and standing still
