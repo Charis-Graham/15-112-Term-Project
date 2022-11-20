@@ -69,16 +69,29 @@ def drawElephantWalking(app, canvas):
                         image=ImageTk.PhotoImage(elephant))
 
 #TREE
+def tree(app):
+    app.treeImage = app.loadImage("images/tree.png")
+
+def drawTree(app, canvas):
+    canvas.create_image(100, 100,image=ImageTk.PhotoImage(app.treeImage))
 
 #WATER
+def water(app):
+    app.waterImage = app.loadImage("images/water.png")
+
+def drawWater(app, canvas):
+    canvas.create_image(100, 100,image=ImageTk.PhotoImage(app.treeImage))
+
 
 #GRASS
 def tessellationGrassGround(app):
-    #based on Eli Courtwright's answer on
-    #https://stackoverflow.com/questions/1060090/changing-variable-names-with-python-for-loops
-    #creates a dictionary with the five grass tiles
-    grassImages = {}
+    app.grass = []
     for panel in range(1, 6):
-        app.grassImage["grass"+str(panel)] = app.loadImage(f'images/grass/grass{panel}.jpg')
-    
-    
+        app.grassImage = app.loadImage(f"images/grass/grass{panel}.jpg")
+        app.grass.append(app.grassImage)
+
+def drawGround(app, canvas):
+    for dw in range(0, app.width, 20):
+        for dh in range(0, app.height, 20):
+            randInd = random.randint(0, 4)
+            canvas.create_image(dw,dh,image=ImageTk.PhotoImage(app.grass[randInd]))

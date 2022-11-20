@@ -1,7 +1,8 @@
-#6:40 - 7:32pm
-#7:45 - 8:46pm
-#9:05 - 10:00pm
-#
+#6:40 - 7:32pm, 52 min
+#7:45 - 8:46pm, 1 hr, 1 min
+#9:05 - 10:00pm, 55 min
+#1:30 - 1:48am
+#1:50 - 
 
 
 from cmu_112_graphics import *
@@ -11,6 +12,8 @@ from elephantPlayer import *
 def appStarted(app):
     #this function displays the elephant walking left
     elephantWalk(app)
+    tessellationGrassGround(app)
+    tree(app)
 
 def keyPressed(app, event):
     #controls the player moving
@@ -25,6 +28,8 @@ def timerFired(app):
 
 def redrawAll(app, canvas):
     #draws the elephant walking
+    drawGround(app, canvas)
     drawElephantWalking(app, canvas)
+    drawTree(app, canvas)
 
 runApp(width = 400, height = 400)
