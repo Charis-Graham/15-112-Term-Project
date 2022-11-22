@@ -176,7 +176,6 @@ class WateringHole(object):
                 r,g,b = oldImage.getpixel((x,y))
                 recolorImage.putpixel((x,y), (r, g, 0))
         self.image = recolorImage
-    
 
 class Tree(object):
     def __init__(self, leafLevel):
