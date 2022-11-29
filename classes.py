@@ -218,3 +218,21 @@ class Tree(object):
                 r,g,b = oldImage.getpixel((x,y))
                 recolorImage.putpixel((x,y), (r, g, 0))
         self.image = recolorImage
+
+#class to be used as a hitbox to determine when elements are interacting
+class hitBox(object):
+    def __init__(self, imgWidth, imgHeight, imgX, imgY):
+        self.imgWidth = imgWidth
+        self.imgHeight = imgHeight
+        self.imgX = imgX
+        self.imgY = imgY
+
+    #defines the parameters of a hitbox for a given sprite
+    def makeHitBox(self):
+        #returns a tuple with a rectangular box value for the hitbox
+        return (self.imgX, self.imgY, self.imgX + self.imgWidth, 
+                    self.imgY+self.imgHeight)
+    
+    #will determine if two hitboxes are overlapping
+    def overlap(self, other):
+        pass

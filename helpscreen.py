@@ -18,3 +18,8 @@ def helpScreenMode_redrawAll(app, canvas):
 def helpScreenMode_keyPressed(app, event):
     if event.key == "g":
         app.mode = "gameMode"
+
+def helpScreenMode_timerFired(app):
+    if (app.width != app.helpScreen.size[0] 
+        or app.height != app.helpScreen.size[1]):
+        app.setSize(app.helpScreen.size[0], app.helpScreen.size[1])

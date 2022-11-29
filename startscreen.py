@@ -19,3 +19,8 @@ def startScreenMode_keyPressed(app, event):
         app.mode = "gameMode"
     elif event.key == "h":
         app.mode = "helpScreenMode"
+
+def startScreenMode_timerFired(app):
+    if (app.width != app.startScreen.size[0] 
+        or app.height != app.startScreen.size[1]):
+        app.setSize(app.startScreen.size[0], app.startScreen.size[1])
