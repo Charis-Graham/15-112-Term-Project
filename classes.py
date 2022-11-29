@@ -2,10 +2,6 @@ from cmu_112_graphics import *
 from elephantPlayer import *
 import random
 
-class hitBoxInheritance(object):
-    pass
-#use 15112 Lecture 30 hitbox as example
-
 #creates the elephant class
 class Elephant(object):
     def __init__(self, app, lifeState, hunger, thirst, energy):
@@ -42,9 +38,6 @@ class Elephant(object):
         self.imageWidth = 0
         self.imageX = app.width//2
         self.imageY = app.height//2
-
-        self.hitBox = hitBox(self.imageWidth, self.imageHeight, 
-                            self.imageX, self.imageY)
     
     def elephantStandStill(self, app):
         self.elephantStill = self.image
@@ -57,8 +50,6 @@ class Elephant(object):
         stillSize = self.elephantStill.size
         stillImageHeight = sizeIm[1]
         stillImageWidth = sizeIm[0]
-        self.hitBox = hitBox(stillImageHeight, stillImageWidth, 
-                            self.imageX, self.imageY)
     
     def drawElephantStill(self, app, canvas):
         canvas.create_image(self.imageX, 
@@ -129,12 +120,6 @@ class Elephant(object):
             self.elephantMoveRight = False
             self.elephantMoveDown = False
             self.elephantMoveUp = False
-    
-    #for when the herd is further fleshed out, will be one of the functions of bonding
-    def elephantShareFood(self, other):
-        if self.hitBox.overlap(other):
-            self.energy -= 5
-            other.energy += 5
 
 #creates the watering hole class
 class WateringHole(object):
@@ -233,21 +218,3 @@ class Tree(object):
         #Created by Modanung 
         #Modified by me with recoloring
         self.image = app.loadImage("images/treeStripped.png")
-
-#class to be used as a hitbox to determine when elements are interacting
-class hitBox(object):
-    def __init__(self, imgWidth, imgHeight, imgX, imgY):
-        self.imgWidth = imgWidth
-        self.imgHeight = imgHeight
-        self.imgX = imgX
-        self.imgY = imgY
-
-    #defines the parameters of a hitbox for a given sprite
-    def makeHitBox(self):
-        #returns a tuple with a rectangular box value for the hitbox
-        return (self.imgX, self.imgY, self.imgX + self.imgWidth, 
-                    self.imgY+self.imgHeight)
-    
-    #will determine if two hitboxes are overlapping
-    def overlap(self, other):
-        pass
