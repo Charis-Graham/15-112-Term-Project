@@ -1,5 +1,6 @@
 from cmu_112_graphics import *
 
+#initiates variables for the functions
 def helpScreenMode_initiate(app):
     app.mode = 'helpScreenMode'
     #image taken from
@@ -11,14 +12,18 @@ def helpScreenMode_initiate(app):
     app.helpwidth = sizeOfStart[0]
     app.helpheight = sizeOfStart[1]
 
+#draws the help screen
 def helpScreenMode_redrawAll(app, canvas):
     canvas.create_image(app.width//2, app.height//2, image=ImageTk.PhotoImage(app.helpScreen))
     #app.setSize(app.helpwidth, app.helpheight)
 
+#allows to go to game mode
 def helpScreenMode_keyPressed(app, event):
     if event.key == "g":
         app.mode = "gameMode"
 
+#keeps the helpscreen from being resized
+#will probably be removed later
 def helpScreenMode_timerFired(app):
     if (app.width != app.helpScreen.size[0] 
         or app.height != app.helpScreen.size[1]):

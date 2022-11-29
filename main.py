@@ -6,6 +6,7 @@ from startscreen import *
 from helpscreen import *
 from gamemode import *
 
+#initiates the basic starting elements and sets the beginning game mode
 def appStarted(app):
     #initiates the app features for different modes
     startScreenMode_initiate(app)
@@ -18,3 +19,5 @@ def appStarted(app):
     
 
 runApp(width = 400, height = 400)
+
+#2 hours

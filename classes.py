@@ -6,6 +6,7 @@ class hitBoxInheritance(object):
     pass
 #use 15112 Lecture 30 hitbox as example
 
+#creates the elephant class
 class Elephant(object):
     def __init__(self, app, lifeState, hunger, thirst, energy):
         #life stats of the elephant
@@ -135,6 +136,7 @@ class Elephant(object):
             self.energy -= 5
             other.energy += 5
 
+#creates the watering hole class
 class WateringHole(object):
     def __init__(self, app, waterLevel):
         self.waterLevel = waterLevel
@@ -181,6 +183,7 @@ class WateringHole(object):
                 recolorImage.putpixel((x,y), (r, g, 0))
         self.image = recolorImage
 
+#creates the tree object
 class Tree(object):
     def __init__(self, leafLevel):
         self.leafLevel = leafLevel
