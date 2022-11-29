@@ -172,16 +172,23 @@ class WateringHole(object):
     def drawWater(self, app, canvas):
         canvas.create_image(self.X, self.Y,image=ImageTk.PhotoImage(self.image))
 
-    #inspired by getPixel, putPixel example from 
-    #https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#events 
+    #water low image
     def goMuddy(self, app):
-        oldImage = self.image.convert("RGB")
-        recolorImage = Image.new(mode="RGB", size=self.image.size)
-        for x in range(recolorImage.width):
-            for y in range(recolorImage.height):
-                r,g,b = oldImage.getpixel((x,y))
-                recolorImage.putpixel((x,y), (r, g, 0))
-        self.image = recolorImage
+        #loads the image
+        #Water PNG comes from https://opengameart.org/content/lpc-animated-water-and-fire 
+        #Under CC-BY 3.0
+        #Created by Sharm
+        #Modified by me with recoloring
+        self.image = app.loadImage("images/waterDrunk.png")
+    
+    #image of water empty
+    def goDry(self, app):
+        #loads the image
+        #Water PNG comes from https://opengameart.org/content/lpc-animated-water-and-fire 
+        #Under CC-BY 3.0
+        #Created by Sharm
+        #Modified by me with recoloring
+        self.image = app.loadImage("images/waterDry.png")
 
 #creates the tree object
 class Tree(object):
@@ -211,16 +218,21 @@ class Tree(object):
         self.X = random.randint(0, app.width)
         self.Y = random.randint(0, app.height)
     
-    #inspired by getPixel, putPixel example from 
-    #https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#events 
+    #image of tree being stripped
     def goLeaves(self, app):
-        oldImage = self.image.convert("RGB")
-        recolorImage = Image.new(mode="RGB", size=self.image.size)
-        for x in range(recolorImage.width):
-            for y in range(recolorImage.height):
-                r,g,b = oldImage.getpixel((x,y))
-                recolorImage.putpixel((x,y), (r, g, 0))
-        self.image = recolorImage
+        #Tree PNG comes from https://opengameart.org/content/savannah-tiles 
+        #Under CC-BY-SA 3.0
+        #Created by Modanung 
+        #Modified by me with recoloring
+        self.image = app.loadImage("images/treeEaten.png")
+    
+    #image of dead tree
+    def goLeaves(self, app):
+        #Tree PNG comes from https://opengameart.org/content/savannah-tiles 
+        #Under CC-BY-SA 3.0
+        #Created by Modanung 
+        #Modified by me with recoloring
+        self.image = app.loadImage("images/treeStripped.png")
 
 #class to be used as a hitbox to determine when elements are interacting
 class hitBox(object):
