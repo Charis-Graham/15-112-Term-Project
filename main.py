@@ -12,6 +12,8 @@ def appStarted(app):
     helpScreenMode_initiate(app)
     gameMode_initiate(app)
 
+    #game mode based on idea from Using Modes (aka Screens) Example on
+    #https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#usingModes 
     app.mode = "startScreenMode"
 
 runApp(width = 400, height = 400)
