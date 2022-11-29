@@ -1,6 +1,6 @@
 from cmu_112_graphics import *
 
-def startScreenInitiate(app):
+def startScreenMode_initiate(app):
     app.mode = 'startScreenMode'
     #image taken from
     #https://www.livescience.com/27320-elephants.html
@@ -18,4 +18,4 @@ def startScreenMode_keyPressed(app, event):
     if event.key == "s":
         app.mode = "gameMode"
     elif event.key == "h":
-        app.mode = "helpMode"
+        app.mode = "helpScreenMode"

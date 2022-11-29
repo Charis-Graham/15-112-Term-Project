@@ -1,11 +1,12 @@
 from cmu_112_graphics import *
 
-def helpScreenInitiate(app):
+def helpScreenMode_initiate(app):
     app.mode = 'helpScreenMode'
     #image taken from
-    #https://www.livescience.com/27320-elephants.html
+    #https://www.vecteezy.com/vector-art/4904919-green-leaf-background-illustration-vector
+    #created by mitasukmaa
     #and modified using google draw
-    app.startScreen = app.loadImage('images/helpScreen.png')
+    app.helpScreen = app.loadImage('images/helpScreen.png')
     sizeOfStart = app.helpScreen.size
     app.helpwidth = sizeOfStart[0]
     app.helpheight = sizeOfStart[1]
