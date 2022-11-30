@@ -24,14 +24,6 @@ def gameMode_initiate(app):
     app.player.elephantWalking(app)
     app.player.elephantStandStill(app)
 
-    #draws a tree
-    app.tree = Tree(100, 300, 300)
-    app.tree.treeImage(app)
-
-    #creates an element of class water
-    app.water = WateringHole(100, 100, 100)
-    app.water.waterImage(app)
-
     gameMode_makeGameBoard(app)
 
 #controls the available keyboard interactions
@@ -41,12 +33,50 @@ def gameMode_keyPressed(app, event):
 
     #to be removed later, these are controls to test certain unfinished 
     #elements of water and tree classes
-    if event.key == "d" and app.player.intersectsObject(app.water):
-        app.water.goMuddy(app)
-        app.water.waterLevel -= 10
-    elif event.key == "e" and app.player.intersectsObject(app.tree):
-        app.tree.goLeaves(app)
-        app.tree.leafLevel -= 10
+    if event.key == "d":
+        if app.player.intersectsObject(app.water1):
+            app.water1.goMuddy(app)
+            app.water1.waterLevel -= 10
+            app.player.thirst += 10
+        elif app.player.intersectsObject(app.water2):
+            app.water2.goMuddy(app)
+            app.water2.waterLevel -= 10
+            app.player.thirst += 10
+        elif app.player.intersectsObject(app.water3):
+            app.water3.goMuddy(app)
+            app.water3.waterLevel -= 10
+            app.player.thirst += 10
+        elif app.player.intersectsObject(app.water4):
+            app.water4.goMuddy(app)
+            app.water4.waterLevel -= 10
+            app.player.thirst += 10
+        elif app.player.intersectsObject(app.water5):
+            app.water5.goMuddy(app)
+            app.water5.waterLevel -= 10
+            app.player.thirst += 10
+        
+    elif event.key == "e":
+        if app.player.intersectsObject(app.tree1):
+            app.tree1.goLeaves(app)
+            app.tree1.leafLevel -= 10
+            app.player.hunger += 10
+        elif app.player.intersectsObject(app.tree2):
+            app.tree2.goLeaves(app)
+            app.tree2.leafLevel -= 10
+            app.player.hunger += 10
+        elif app.player.intersectsObject(app.tree3):
+            app.tree3.goLeaves(app)
+            app.tree3.leafLevel -= 10
+            app.player.hunger += 10
+        elif app.player.intersectsObject(app.tree4):
+            app.tree4.goLeaves(app)
+            app.tree4.leafLevel -= 10
+            app.player.hunger += 10
+        elif app.player.intersectsObject(app.tree5):
+            app.tree5.goLeaves(app)
+            app.tree5.leafLevel -= 10
+            app.player.hunger += 10
+
     elif event.key == "h":
         app.mode = "helpScreenMode"
 
@@ -74,15 +104,17 @@ def gameMode_redrawAll(app, canvas):
     #draws the ground
     gameMode_drawGround(app, canvas)
 
-    #draws a tree
-    app.tree.X -= app.xScroll
-    app.tree.drawTree(app, canvas)
+    # #draws a tree
+    # app.tree.X -= app.xScroll
+    # app.tree.drawTree(canvas)
 
-    #draw water
-    app.water.X -= app.xScroll
-    app.water.drawWater(app, canvas)
+    # #draw water
+    # app.water.X -= app.xScroll
+    # app.water.drawWater(canvas)
+    
 
     gameMode_statBoard(app, canvas)
+    gameMode_drawGameBoard(app, canvas)
 
     #draws the player elephant
     if (app.player.elephantMoveLeft == False and 

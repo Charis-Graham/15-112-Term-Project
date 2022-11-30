@@ -175,7 +175,7 @@ class WateringHole(object):
         return self.X, self.Y
             
     #draws the water on the canvas
-    def drawWater(self, app, canvas):
+    def drawWater(self, canvas):
         canvas.create_image(self.X, self.Y, image=ImageTk.PhotoImage(self.image))
 
     #water low image
@@ -227,7 +227,7 @@ class Tree(object):
         self.imageWidth = sizeIm[0]
 
     #draws the tree image
-    def drawTree(self, app, canvas):
+    def drawTree(self, canvas):
         canvas.create_image(self.X, self.Y, image=ImageTk.PhotoImage(self.image))
     
     #image of tree being stripped

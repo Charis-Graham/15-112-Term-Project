@@ -23,24 +23,73 @@ def gameMode_drawGround(app, canvas):
                                 image = imageGrass)
 
 #GAME BOARD DICTIONARY
+def gameMode_createRandomStats(app):
+    X = random.randint(0, app.width)
+    Y = random.randint(0, app.height)
+    level = random.randint(70, 100)
+    return X, Y, level
+
+#creates a game board with 5 random generated trees and 5 randomly generated 
+#waterholes
 def gameMode_makeGameBoard(app):
-    app.resourcePlacement = {}
-    for treeNum in range(5):
-        #random placements
-        treeX = random.randint(0, app.width)
-        treeY = random.randint(0, app.height)
-        treeLeaf = random.randint(70, 100)
-        tree = Tree(treeLeaf, treeX, treeY)
-        app.resourcePlacement.add(tree)
+    #creates five randomly spawned trees
+    tree1X, tree1Y, tree1Leaf = gameMode_createRandomStats(app)
+    app.tree1 = Tree(tree1Leaf, tree1X, tree1Y)
+    app.tree1.treeImage(app)
 
-def gameMode_drawGameBoard(app, canvas):
-    for item in app.resourcePlacement:
-        if isinstance(item, Tree):
-            item.drawTree(canvas)
-        elif isinstance(item, WateringHole):
-            item.drawWater(canvas)
+    tree2X, tree2Y, tree2Leaf = gameMode_createRandomStats(app)
+    app.tree2 = Tree(tree2Leaf, tree2X, tree2Y)
+    app.tree2.treeImage(app)
 
+    tree3X, tree3Y, tree3Leaf = gameMode_createRandomStats(app)
+    app.tree3 = Tree(tree3Leaf, tree3X, tree3Y)
+    app.tree3.treeImage(app)
+
+    tree4X, tree4Y, tree4Leaf = gameMode_createRandomStats(app)
+    app.tree4 = Tree(tree4Leaf, tree4X, tree4Y)
+    app.tree4.treeImage(app)
+
+    tree5X, tree5Y, tree5Leaf = gameMode_createRandomStats(app)
+    app.tree5 = Tree(tree5Leaf, tree5X, tree5Y)
+    app.tree5.treeImage(app)
+
+    #creates 5 randomly spawned watering holes
+    tree1X, tree1Y, tree1Leaf = gameMode_createRandomStats(app)
+    app.water1 = WateringHole(tree1Leaf, tree1X, tree1Y)
+    app.water1.waterImage(app)
+
+    tree2X, tree2Y, tree2Leaf = gameMode_createRandomStats(app)
+    app.water2 = WateringHole(tree2Leaf, tree2X, tree2Y)
+    app.water2.waterImage(app)
+
+    tree3X, tree3Y, tree3Leaf = gameMode_createRandomStats(app)
+    app.water3 = WateringHole(tree3Leaf, tree3X, tree3Y)
+    app.water3.waterImage(app)
+
+    tree4X, tree4Y, tree4Leaf = gameMode_createRandomStats(app)
+    app.water4 = WateringHole(tree4Leaf, tree4X, tree4Y)
+    app.water4.waterImage(app)
+
+    tree5X, tree5Y, tree5Leaf = gameMode_createRandomStats(app)
+    app.water5 = WateringHole(tree5Leaf, tree5X, tree5Y)
+    app.water5.waterImage(app)
     
+#draws the randomly spawned background
+def gameMode_drawGameBoard(app, canvas):
+    #draws trees
+    app.tree1.drawTree(canvas)
+    app.tree2.drawTree(canvas)
+    app.tree3.drawTree(canvas)
+    app.tree4.drawTree(canvas)
+    app.tree5.drawTree(canvas)
+
+    #draws water
+    app.water1.drawWater(canvas)
+    app.water2.drawWater(canvas)
+    app.water3.drawWater(canvas)
+    app.water4.drawWater(canvas)
+    app.water5.drawWater(canvas)
+
 def gameMode_statBoard(app, canvas):
     canvas.create_rectangle(10, 10, 150, 250, fill="white", 
                             outline="black", width =5)
