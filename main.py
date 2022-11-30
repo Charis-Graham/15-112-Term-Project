@@ -19,5 +19,3 @@ def appStarted(app):
     
 
 runApp(width = 400, height = 400)
-
-#2 hours

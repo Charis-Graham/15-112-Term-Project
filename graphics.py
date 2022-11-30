@@ -6,14 +6,15 @@ def grass(app):
     #Grass PNGs come from https://opengameart.org/content/grass-texture-pack
     #Under CC0
     #Created by Proxy Games
-    app.grassImage = app.loadImage(f"images/grass/grass3.jpg")
+    app.grassImage = app.loadImage("images/grass/grass3.jpg")
+    app.grassImage = app.scaleImage(app.grassImage, 12)
     sizeIm = app.grassImage.size
     app.grassImageHeight = sizeIm[1]
     app.grassImageWidth = sizeIm[0]
 
 #draws the background of the game
 def drawGround(app, canvas):
-    for dw in range(0, app.width, 20):
-        for dh in range(0, app.height, 20):
+    for dw in range(0, app.width, 384):
+        for dh in range(0, app.height, 380):
             canvas.create_image(dw, dh,
                                 image = ImageTk.PhotoImage(app.grassImage))

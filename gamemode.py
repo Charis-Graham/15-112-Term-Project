@@ -69,6 +69,12 @@ def gameMode_timerFired(app):
     #https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#spritesheetsWithCropping
     app.player.spriteCounter = (1 + app.player.spriteCounter) % app.player.numFrames
 
+    #keeps the game mode from being resized
+    #will probably be removed later
+    if (app.width != app.helpScreen.size[0] 
+        or app.height != app.helpScreen.size[1]):
+        app.setSize(app.helpScreen.size[0], app.helpScreen.size[1])
+
 def gameMode_redrawAll(app, canvas):
     #draws the ground
     drawGround(app, canvas)
@@ -85,3 +91,4 @@ def gameMode_redrawAll(app, canvas):
     else:
         app.player.drawElephantWalk(app, canvas)
         app.player.elephantWeaken()
+
