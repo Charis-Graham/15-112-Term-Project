@@ -4,7 +4,7 @@ import random
 
 #creates the elephant class
 class Elephant(object):
-    def __init__(self, app, lifeState, hunger, thirst, energy):
+    def __init__(self, app, lifeState, hunger, thirst, energy, x, y):
         #life stats of the elephant
         self.lifeState = lifeState
         self.hunger = hunger
@@ -36,8 +36,8 @@ class Elephant(object):
 
         self.imageHeight = 0
         self.imageWidth = 0
-        self.imageX = app.width//2
-        self.imageY = app.height//2
+        self.imageX = x
+        self.imageY = y
     
     def elephantStandStill(self, app):
         self.elephantStill = self.image
@@ -123,13 +123,12 @@ class Elephant(object):
 
 #creates the watering hole class
 class WateringHole(object):
-    def __init__(self, app, waterLevel):
+    def __init__(self, waterLevel, x, y):
         self.waterLevel = waterLevel
-        
         self.image = ''
         self.imageHeight = 0
         self.imageWidth = 0
-        self.X, self.Y = 300, 300
+        self.X, self.Y = x, y
         
     #crops the water image
     def waterImage(self, app):
@@ -155,7 +154,7 @@ class WateringHole(object):
             
     #draws the water on the canvas
     def drawWater(self, app, canvas):
-        canvas.create_image(self.X, self.Y,image=ImageTk.PhotoImage(self.image))
+        canvas.create_image(self.X, self.Y, image=ImageTk.PhotoImage(self.image))
 
     #water low image
     def goMuddy(self, app):
@@ -177,12 +176,12 @@ class WateringHole(object):
 
 #creates the tree object
 class Tree(object):
-    def __init__(self, leafLevel):
+    def __init__(self, leafLevel, x, y):
         self.leafLevel = leafLevel
         self.image = ''
         self.imageHeight = 0
         self.imageWidth = 0
-        self.X, self.Y = 100, 100
+        self.X, self.Y = x, y
     
     #crops the tree image
     def treeImage(self, app):
