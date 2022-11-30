@@ -17,7 +17,7 @@ def gameMode_initiate(app):
     gameMode_grass(app)
 
     #creates a player of class elephant
-    app.player = Elephant(app, "baby", 100, 100, 100, 
+    app.player = Elephant(app, 0, 0, 0, 100, 
                         app.width//2, app.height//2)
 
     #initializes the animations for walking and standing still
@@ -31,6 +31,8 @@ def gameMode_initiate(app):
     #creates an element of class water
     app.water = WateringHole(100, 100, 100)
     app.water.waterImage(app)
+
+    gameMode_makeGameBoard(app)
 
 #controls the available keyboard interactions
 def gameMode_keyPressed(app, event):
@@ -79,6 +81,8 @@ def gameMode_redrawAll(app, canvas):
     #draw water
     app.water.X -= app.xScroll
     app.water.drawWater(app, canvas)
+
+    gameMode_statBoard(app, canvas)
 
     #draws the player elephant
     if (app.player.elephantMoveLeft == False and 
