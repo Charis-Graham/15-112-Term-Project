@@ -37,6 +37,8 @@ class Elephant(object):
 
         self.imageHeight = 0
         self.imageWidth = 0
+        self.stillImageHeight = 0
+        self.stillImageWidth = 0
         self.imageX = x
         self.imageY = y
     
@@ -49,8 +51,8 @@ class Elephant(object):
                                     2*(self.imageWidth//3), 
                                     self.imageHeight//4)))
         stillSize = self.elephantStill.size
-        stillImageHeight = sizeIm[1]
-        stillImageWidth = sizeIm[0]
+        self.stillImageHeight = stillSize[1]
+        self.stillImageWidth = stillSize[0]
     
     def drawElephantStill(self, app, canvas):
         canvas.create_image(self.imageX, 
@@ -128,8 +130,8 @@ class Elephant(object):
     #https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#sidescrollerExamples
     def getBounds(self):
     # returns absolute bounds, not taking xScroll into account
-        (x0, y1) = (self.imageX, self.imageHeight/2 - self.imageY)
-        (x1, y0) = (x0 + self.imageWidth, y1 - self.imageHeight)
+        (x0, y1) = (self.imageX, self.stillImageHeight/2 - self.imageY)
+        (x1, y0) = (x0 + self.stillImageWidth, y1 - self.stillImageHeight)
         print(x0, y0, x1, y1)
         return x0, y0, x1, y1
 
@@ -139,8 +141,7 @@ class Elephant(object):
         (bx0, by0, bx1, by1) = other.getBounds()
         return ((ax1 >= bx0) and (bx1 >= ax0) and
                 (ay1 >= by0) and (by1 >= ay0))
-
-
+                
 #creates the watering hole class
 class WateringHole(object):
     def __init__(self, waterLevel, x, y):
@@ -183,16 +184,10 @@ class WateringHole(object):
         #Under CC-BY 3.0
         #Created by Sharm
         #Modified by me with recoloring
-        self.image = app.loadImage("images/waterDrunk.png")
-    
-    #image of water empty
-    def goDry(self, app):
-        #loads the image
-        #Water PNG comes from https://opengameart.org/content/lpc-animated-water-and-fire 
-        #Under CC-BY 3.0
-        #Created by Sharm
-        #Modified by me with recoloring
-        self.image = app.loadImage("images/waterDry.png")
+        if self.waterLevel > 50:
+            self.image = app.loadImage("images/waterDrunk.png")
+        elif self.waterLevel > 0:
+            self.image = app.loadImage("images/waterDry.png")
 
     #Copied from game object class developed in Lecture 1
     #Tuesday, November 22, 2022 by Pat Virtue
@@ -234,19 +229,15 @@ class Tree(object):
     
     #image of tree being stripped
     def goLeaves(self, app):
-        #Tree PNG comes from https://opengameart.org/content/savannah-tiles 
+        #Tree PNGs comes from https://opengameart.org/content/savannah-tiles 
         #Under CC-BY-SA 3.0
         #Created by Modanung 
         #Modified by me with recoloring
-        self.image = app.loadImage("images/treeEaten.png")
+        if self.leafLevel > 50:
+            self.image = app.loadImage("images/treeEaten.png")
+        elif self.leafLevel > 0:
+            self.image = app.loadImage("images/treeStripped.png")
     
-    #image of dead tree
-    def goLeaves(self, app):
-        #Tree PNG comes from https://opengameart.org/content/savannah-tiles 
-        #Under CC-BY-SA 3.0
-        #Created by Modanung 
-        #Modified by me with recoloring
-        self.image = app.loadImage("images/treeStripped.png")
     
     #Copied from game object class developed in Lecture 1
     #Tuesday, November 22, 2022 by Pat Virtue

@@ -41,8 +41,10 @@ def gameMode_keyPressed(app, event):
     #elements of water and tree classes
     if event.key == "d" and app.player.intersectsObject(app.water):
         app.water.goMuddy(app)
+        app.water.waterLevel -= 10
     elif event.key == "e" and app.player.intersectsObject(app.tree):
         app.tree.goLeaves(app)
+        app.tree.leafLevel -= 10
     elif event.key == "h":
         app.mode = "helpScreenMode"
 
