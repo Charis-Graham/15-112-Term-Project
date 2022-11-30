@@ -6,6 +6,7 @@ from startscreen import *
 from helpscreen import *
 from gamemode import *
 
+#nmds
 #initiates the basic starting elements and sets the beginning game mode
 def appStarted(app):
     #initiates the app features for different modes
