@@ -58,4 +58,3 @@ def playerStill(app, event):
         app.player.elephantMoveRight = False
         app.player.elephantMoveDown = False
         app.player.elephantMoveUp = False
-

@@ -1,5 +1,6 @@
 from cmu_112_graphics import *
 from elephantPlayer import *
+from graphics import *
 import random
 
 #creates the elephant class
@@ -120,6 +121,14 @@ class Elephant(object):
             self.elephantMoveRight = False
             self.elephantMoveDown = False
             self.elephantMoveUp = False
+
+    def elephantTreeOverlap(self, other):
+        if gameMode_intersectsObject(self, other):
+            if isinstance(other, Tree):
+                pass
+            elif isinstance(other, WateringHole):
+                pass
+
 
 #creates the watering hole class
 class WateringHole(object):
