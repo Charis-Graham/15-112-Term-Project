@@ -39,13 +39,9 @@ def gameMode_keyPressed(app, event):
 
     #to be removed later, these are controls to test certain unfinished 
     #elements of water and tree classes
-    if event.key == "t":
-        app.tree.randomTreeSpawn(app)
-    elif event.key == "w":
-        app.water.randomWaterSpawn(app)
-    elif event.key == "r":
+    if event.key == "d" and app.player.intersectsObject(app.water):
         app.water.goMuddy(app)
-    elif event.key == "l":
+    elif event.key == "e" and app.player.intersectsObject(app.tree):
         app.tree.goLeaves(app)
     elif event.key == "h":
         app.mode = "helpScreenMode"

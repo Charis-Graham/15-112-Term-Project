@@ -121,13 +121,24 @@ class Elephant(object):
             self.elephantMoveRight = False
             self.elephantMoveDown = False
             self.elephantMoveUp = False
+    
+    #Copied from game object class developed in Lecture 1
+    #Tuesday, November 22, 2022 by Pat Virtue
+    #which was based on side scroller #3 on 
+    #https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#sidescrollerExamples
+    def getBounds(self):
+    # returns absolute bounds, not taking xScroll into account
+        (x0, y1) = (self.imageX, self.imageHeight/2 - self.imageY)
+        (x1, y0) = (x0 + self.imageWidth, y1 - self.imageHeight)
+        print(x0, y0, x1, y1)
+        return x0, y0, x1, y1
 
-    def elephantTreeOverlap(self, other):
-        if gameMode_intersectsObject(self, other):
-            if isinstance(other, Tree):
-                pass
-            elif isinstance(other, WateringHole):
-                pass
+    def intersectsObject(self, other):
+        # return l2<=r1 and t2<=b1 and l1<=r2 and t1<=b2
+        (ax0, ay0, ax1, ay1) = self.getBounds()
+        (bx0, by0, bx1, by1) = other.getBounds()
+        return ((ax1 >= bx0) and (bx1 >= ax0) and
+                (ay1 >= by0) and (by1 >= ay0))
 
 
 #creates the watering hole class
@@ -183,6 +194,16 @@ class WateringHole(object):
         #Modified by me with recoloring
         self.image = app.loadImage("images/waterDry.png")
 
+    #Copied from game object class developed in Lecture 1
+    #Tuesday, November 22, 2022 by Pat Virtue
+    #which was based on side scroller #3 on 
+    #https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#sidescrollerExamples
+    def getBounds(self):
+    # returns absolute bounds, not taking xScroll into account
+        (x0, y1) = (self.X, self.imageHeight/2 - self.Y)
+        (x1, y0) = (x0 + self.imageWidth, y1 - self.imageHeight)
+        return x0, y0, x1, y1
+
 #creates the tree object
 class Tree(object):
     def __init__(self, leafLevel, x, y):
@@ -226,3 +247,13 @@ class Tree(object):
         #Created by Modanung 
         #Modified by me with recoloring
         self.image = app.loadImage("images/treeStripped.png")
+    
+    #Copied from game object class developed in Lecture 1
+    #Tuesday, November 22, 2022 by Pat Virtue
+    #which was based on side scroller #3 on 
+    #https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#sidescrollerExamples
+    def getBounds(self):
+    # returns absolute bounds, not taking xScroll into account
+        (x0, y1) = (self.X, self.imageHeight/2 - self.Y)
+        (x1, y0) = (x0 + self.imageWidth, y1 - self.imageHeight)
+        return x0, y0, x1, y1
