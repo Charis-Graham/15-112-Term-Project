@@ -1,5 +1,5 @@
 from cmu_112_graphics import *
-from graphics import *
+from boardGeneration import *
 from elephantPlayer import *
 from classes import *
 from startscreen import *

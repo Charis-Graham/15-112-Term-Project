@@ -1,6 +1,6 @@
 from cmu_112_graphics import *
 from elephantPlayer import *
-from graphics import *
+from boardGeneration import *
 import random
 
 #creates the elephant class
@@ -172,6 +172,7 @@ class WateringHole(object):
     def randomWaterSpawn(self, app):
         self.X = random.randint(0, app.width)
         self.Y = random.randint(0, app.height)
+        return self.X, self.Y
             
     #draws the water on the canvas
     def drawWater(self, app, canvas):
@@ -198,6 +199,13 @@ class WateringHole(object):
         (x0, y1) = (self.X, self.imageHeight/2 - self.Y)
         (x1, y0) = (x0 + self.imageWidth, y1 - self.imageHeight)
         return x0, y0, x1, y1
+    
+    def intersectsObject(self, other):
+        # return l2<=r1 and t2<=b1 and l1<=r2 and t1<=b2
+        (ax0, ay0, ax1, ay1) = self.getBounds()
+        (bx0, by0, bx1, by1) = other.getBounds()
+        return ((ax1 >= bx0) and (bx1 >= ax0) and
+                (ay1 >= by0) and (by1 >= ay0))
 
 #creates the tree object
 class Tree(object):
@@ -222,11 +230,6 @@ class Tree(object):
     def drawTree(self, app, canvas):
         canvas.create_image(self.X, self.Y, image=ImageTk.PhotoImage(self.image))
     
-    #allows for random placement of the image
-    def randomTreeSpawn(self, app):
-        self.X = random.randint(0, app.width)
-        self.Y = random.randint(0, app.height)
-    
     #image of tree being stripped
     def goLeaves(self, app):
         #Tree PNGs comes from https://opengameart.org/content/savannah-tiles 
@@ -248,3 +251,10 @@ class Tree(object):
         (x0, y1) = (self.X, self.imageHeight/2 - self.Y)
         (x1, y0) = (x0 + self.imageWidth, y1 - self.imageHeight)
         return x0, y0, x1, y1
+    
+    def intersectsObject(self, other):
+        # return l2<=r1 and t2<=b1 and l1<=r2 and t1<=b2
+        (ax0, ay0, ax1, ay1) = self.getBounds()
+        (bx0, by0, bx1, by1) = other.getBounds()
+        return ((ax1 >= bx0) and (bx1 >= ax0) and
+                (ay1 >= by0) and (by1 >= ay0))

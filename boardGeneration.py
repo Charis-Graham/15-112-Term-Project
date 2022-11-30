@@ -1,4 +1,6 @@
 from cmu_112_graphics import *
+from classes import *
+import random
 
 #GRASS BACKGROUND
 def gameMode_grass(app):
@@ -19,3 +21,16 @@ def gameMode_drawGround(app, canvas):
         for dh in range(0, app.height, 384):
             canvas.create_image(dw, dh,
                                 image = imageGrass)
+
+#GAME BOARD DICTIONARY
+def makeGameBoard(app):
+    resourcePlacement = {}
+    for treeNum in range(5):
+        #randome placements
+        treeX = random.randint(0, app.width)
+        treeY = random.randint(0, app.height)
+        treeLeaf = random.randint(70, 100)
+        resourcePlacement[f"tree{treeNum}"] = Tree(treeLeaf, treeX, treeY)
+    
+def statBoard(app, canvas):
+    pass
