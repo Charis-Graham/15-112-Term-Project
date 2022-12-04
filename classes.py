@@ -132,7 +132,6 @@ class Elephant(object):
     # returns absolute bounds, not taking xScroll into account
         (x0, y1) = (self.imageX, self.stillImageHeight/2 - self.imageY)
         (x1, y0) = (x0 + self.stillImageWidth, y1 - self.stillImageHeight)
-        print(x0, y0, x1, y1)
         return x0, y0, x1, y1
     
     def overlap(self, other):
@@ -165,14 +164,16 @@ class WateringHole(object):
         #Created by Sharm
         self.image = app.loadImage("images/water.png")
             
-        self.image = self.image.crop((0, 
-                                    self.imageHeight//4, 
-                                    self.imageWidth//2,
-                                    2*(self.imageHeight//3.3)))
         #finds the size of the image
         sizeIm = self.image.size
         self.imageHeight = sizeIm[1]
         self.imageWidth = sizeIm[0]
+        
+        self.image = self.image.crop((0, 
+                                    self.imageHeight//4, 
+                                    self.imageWidth//2,
+                                    2*(self.imageHeight//3.3)))
+        
             
     #draws the water on the canvas
     def drawWater(self, canvas):
@@ -185,9 +186,9 @@ class WateringHole(object):
         #Under CC-BY 3.0
         #Created by Sharm
         #Modified by me with recoloring
-        if self.waterLevel > 50:
+        if self.waterLevel < 70:
             self.image = app.loadImage("images/waterDrunk.png")
-        elif self.waterLevel > 0:
+        elif self.waterLevel < 50:
             self.image = app.loadImage("images/waterDry.png")
 
     #Copied and modified from game object class developed in Lecture 1
@@ -196,6 +197,11 @@ class WateringHole(object):
     #https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#sidescrollerExamples
     def getBounds(self):
     # returns absolute bounds, not taking xScroll into account
+    #finds the size of the image
+        sizeIm = self.image.size
+        self.imageHeight = sizeIm[1]
+        self.imageWidth = sizeIm[0]
+        print("Hi", self.imageHeight, self.imageWidth)
         (x0, y1) = (self.X, self.imageHeight/2 - self.Y)
         (x1, y0) = (x0 + self.imageWidth, y1 - self.imageHeight)
         return x0, y0, x1, y1
