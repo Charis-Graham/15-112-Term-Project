@@ -134,13 +134,21 @@ class Elephant(object):
         (x1, y0) = (x0 + self.stillImageWidth, y1 - self.stillImageHeight)
         print(x0, y0, x1, y1)
         return x0, y0, x1, y1
-
+    
+    def overlap(self, other):
+        # return l2<=r1 and t2<=b1 and l1<=r2 and t1<=b2
+        (ax0, ay0, ax1, ay1) = self.getBounds()
+        (bx0, by0, bx1, by1) = other.getBounds()
+        return ((ax1 > bx0) and (bx1 > ax0) and
+                (ay1 > by0) and (by1 > ay0))
+    
     def intersectsObject(self, other):
         # return l2<=r1 and t2<=b1 and l1<=r2 and t1<=b2
         (ax0, ay0, ax1, ay1) = self.getBounds()
         (bx0, by0, bx1, by1) = other.getBounds()
-        return ((ax1 >= bx0) and (bx1 >= ax0) and
-                (ay1 >= by0) and (by1 >= ay0))
+        return ((ax1 == bx0) and (bx1 == ax0) and
+                (ay1 == by0) and (by1 == ay0))
+
                 
 #creates the watering hole class
 class WateringHole(object):
@@ -156,15 +164,15 @@ class WateringHole(object):
         #Under CC-BY 3.0
         #Created by Sharm
         self.image = app.loadImage("images/water.png")
-        #finds the size of the image
-        sizeIm = self.image.size
-        self.imageHeight = sizeIm[1]
-        self.imageWidth = sizeIm[0]
             
         self.image = self.image.crop((0, 
                                     self.imageHeight//4, 
                                     self.imageWidth//2,
                                     2*(self.imageHeight//3.3)))
+        #finds the size of the image
+        sizeIm = self.image.size
+        self.imageHeight = sizeIm[1]
+        self.imageWidth = sizeIm[0]
             
     #draws the water on the canvas
     def drawWater(self, canvas):
@@ -182,7 +190,7 @@ class WateringHole(object):
         elif self.waterLevel > 0:
             self.image = app.loadImage("images/waterDry.png")
 
-    #Copied from game object class developed in Lecture 1
+    #Copied and modified from game object class developed in Lecture 1
     #Tuesday, November 22, 2022 by Pat Virtue
     #which was based on side scroller #3 on 
     #https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#sidescrollerExamples
@@ -191,13 +199,15 @@ class WateringHole(object):
         (x0, y1) = (self.X, self.imageHeight/2 - self.Y)
         (x1, y0) = (x0 + self.imageWidth, y1 - self.imageHeight)
         return x0, y0, x1, y1
-    
+
     def intersectsObject(self, other):
         # return l2<=r1 and t2<=b1 and l1<=r2 and t1<=b2
         (ax0, ay0, ax1, ay1) = self.getBounds()
         (bx0, by0, bx1, by1) = other.getBounds()
         return ((ax1 >= bx0) and (bx1 >= ax0) and
                 (ay1 >= by0) and (by1 >= ay0))
+    
+    
 
 #creates the tree object
 class Tree(object):
@@ -207,7 +217,7 @@ class Tree(object):
         self.imageHeight = 0
         self.imageWidth = 0
         self.X, self.Y = x, y
-        
+
         #Tree PNG comes from https://opengameart.org/content/savannah-tiles 
         #Under CC-BY-SA 3.0
         #Created by Modanung 

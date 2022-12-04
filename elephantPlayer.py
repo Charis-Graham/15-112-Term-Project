@@ -17,6 +17,28 @@ def gameMode_changePlayerStats(app):
     app.player.thirst = round(app.player.thirst + 0.2, 1)
     app.player.energy = round(app.player.energy - 0.1, 1)
 
+def gameMode_alterObjectPositions(app, direction):
+    if direction == "Left":
+        for tree in app.treeList:
+            tree.X -= app.xScroll
+        
+        for water in app.waterList:
+            water.X -= app.xScroll
+    elif direction == "Right":
+        for tree in app.treeList:
+            tree.X += app.xScroll
+        
+        for water in app.waterList:
+            water.X += app.xScroll
+
+def gameMode_refusePlayerOverlap(app):
+    for water in app.waterList:
+        if app.player.overlap(water):
+            return True
+    for tree in app.treeList:
+        if app.player.overlap(tree):
+            return True
+
 #keyboard controls for the player to move
 def playerMove(app, event):
     if event.key == "Left":
@@ -25,9 +47,17 @@ def playerMove(app, event):
         app.player.elephantMoveDown = False
         app.player.elephantMoveUp = False
 
-        app.player.imageX -= 10
+        #changes the position of the player
+        app.player.imageX -= (10 + app.xScroll)
+
+        #if move overlaps with another object, resets
+        if gameMode_refusePlayerOverlap(app):
+            app.player.imageX += (10 + app.xScroll)
+            
+        #alters the players stats and adjusts the positions of the objects
         gameMode_changePlayerStats(app)
-        gameMode_makePlayerVisible(app)
+        gameMode_alterObjectPositions(app, "Left")
+        
 
     elif event.key == "Right":
         app.player.elephantMoveRight = True
@@ -35,10 +65,14 @@ def playerMove(app, event):
         app.player.elephantMoveDown = False
         app.player.elephantMoveUp = False
 
-        app.player.imageX += 10
+        app.player.imageX += 10 + app.xScroll
+
+        #if move overlaps with another object, resets
+        if gameMode_refusePlayerOverlap(app):
+            app.player.imageX -= (10 + app.xScroll)
         
         gameMode_changePlayerStats(app)
-        gameMode_makePlayerVisible(app)
+        gameMode_alterObjectPositions(app, "Right")
 
     elif event.key == "Down":
         app.player.elephantMoveDown = True
@@ -47,9 +81,12 @@ def playerMove(app, event):
         app.player.elephantMoveUp = False
 
         app.player.imageY += 10
+
+        #if move overlaps with another object, resets
+        if gameMode_refusePlayerOverlap(app):
+            app.player.imageY -= 10
         
         gameMode_changePlayerStats(app)
-        gameMode_makePlayerVisible(app)
 
     elif event.key == "Up":
         app.player.elephantMoveUp = True
@@ -58,9 +95,13 @@ def playerMove(app, event):
         app.player.elephantMoveRight = False
 
         app.player.imageY -= 10
+        #if move overlaps with another object, resets
+        if gameMode_refusePlayerOverlap(app):
+            app.player.imageY += 10
         
         gameMode_changePlayerStats(app)
-        gameMode_makePlayerVisible(app)
+    
+    gameMode_makePlayerVisible(app)
 
 #defines what happens if the player is not moving
 def playerStill(app, event):
@@ -69,3 +110,4 @@ def playerStill(app, event):
         app.player.elephantMoveRight = False
         app.player.elephantMoveDown = False
         app.player.elephantMoveUp = False
+    gameMode_makePlayerVisible(app)

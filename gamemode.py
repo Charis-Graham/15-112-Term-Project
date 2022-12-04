@@ -10,7 +10,6 @@ def gameMode_initiate(app):
 
     #create a margin for side scrolling
     app.xScroll = 0
-    app.yScroll = 0 
     app.marginScroll = 100
 
     app.timerDelay = 1
@@ -35,31 +34,13 @@ def gameMode_keyPressed(app, event):
 
     #what happens if the elephant drinks water
     if event.key == "d":
-        if app.player.intersectsObject(app.water1):
-            app.water1.goMuddy(app)
-            if app.player.thirst > 10:
-                app.water1.waterLevel -= 10
-                app.player.thirst -= 10
-        elif app.player.intersectsObject(app.water2):
-            app.water2.goMuddy(app)
-            if app.player.thirst > 10:
-                app.water2.waterLevel -= 10
-                app.player.thirst -= 10
-        elif app.player.intersectsObject(app.water3):
-            app.water3.goMuddy(app)
-            if app.player.thirst > 10:
-                app.water3.waterLevel -= 10
-                app.player.thirst -= 10
-        elif app.player.intersectsObject(app.water4):
-            app.water4.goMuddy(app)
-            if app.player.thirst > 10:
-                app.water4.waterLevel -= 10
-                app.player.thirst -= 10
-        elif app.player.intersectsObject(app.water5):
-            app.water5.goMuddy(app)
-            if app.player.thirst > 10:
-                app.water5.waterLevel -= 10
-                app.player.thirst -= 10
+        for water in app.waterList:
+            if app.player.intersectsObject(water):
+                water.goMuddy(app)
+                if app.player.thirst > 10:
+                    water.waterLevel -= 10
+                    app.player.thirst -= 10
+       
     #if the elephant eats    
     elif event.key == "e":
         if app.player.intersectsObject(app.tree1):
@@ -67,26 +48,7 @@ def gameMode_keyPressed(app, event):
             if app.player.hunger > 10:
                 app.tree1.leafLevel -= 10
                 app.player.hunger -= 10
-        elif app.player.intersectsObject(app.tree2):
-            app.tree2.goLeaves(app)
-            if app.player.hunger > 10:
-                app.tree2.leafLevel -= 10
-                app.player.hunger -= 10
-        elif app.player.intersectsObject(app.tree3):
-            app.tree3.goLeaves(app)
-            if app.player.hunger > 10:
-                app.tree3.leafLevel -= 10
-                app.player.hunger -= 10
-        elif app.player.intersectsObject(app.tree4):
-            app.tree4.goLeaves(app)
-            if app.player.hunger > 10:
-                app.tree4.leafLevel -= 10
-                app.player.hunger -= 10
-        elif app.player.intersectsObject(app.tree5):
-            app.tree5.goLeaves(app)
-            if app.player.hunger > 10:
-                app.tree5.leafLevel -= 10
-                app.player.hunger -= 10
+        
     #gets the help screen
     elif event.key == "h":
         app.mode = "helpScreenMode"
@@ -104,6 +66,8 @@ def gameMode_timerFired(app):
     #https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#spritesheetsWithCropping
     app.player.spriteCounter = (1 + app.player.spriteCounter) % app.player.numFrames
 
+    gameMode_refusePlayerOverlap(app)
+
     #keeps the game mode from being resized
     #will probably be removed later
     if (app.width != app.helpScreen.size[0] 
@@ -116,8 +80,8 @@ def gameMode_redrawAll(app, canvas):
     gameMode_drawGround(app, canvas)
 
     #generates and draws the game board
-    gameMode_statBoard(app, canvas)
     gameMode_drawGameBoard(app, canvas)
+    gameMode_statBoard(app, canvas)
 
     #draws the player elephant
     if (app.player.elephantMoveLeft == False and 
@@ -126,5 +90,5 @@ def gameMode_redrawAll(app, canvas):
         app.player.elephantMoveUp == False):
         app.player.drawElephantStill(app, canvas)
     else:
-        #app.player.imageX -= app.xScroll
         app.player.drawElephantWalk(app, canvas)
+    

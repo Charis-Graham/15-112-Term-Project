@@ -13,11 +13,12 @@ def gameMode_grass(app):
     sizeIm = app.grassImage.size
     app.grassImageHeight = sizeIm[1]
     app.grassImageWidth = sizeIm[0]
-    print(app.grassImageWidth, app.grassImageHeight)
-    print(app.width, app.height)
 
-    app.boardXCoords = [random.randint(x, x+200) for x in range(-app.width, 2*app.width)]
-    app.boardYCoords = [random.randint(y, y+50) for y in range(0, app.height)]
+    #makes the random coordinates for the water and tree objects on the board
+    app.boardXCoords = ([random.randint(x, x+200) for x in range(-app.width,0, 250)]+
+                    [random.randint(x, x+200) for x in range(0, app.width, 250)]+
+                    [random.randint(x, x+200) for x in range(app.width, 2*app.width, 250)])
+    app.boardYCoords = [random.randint(0, app.height) for y in range(16)]
     app.boardTreeLevels = [random.randint(70,100) for i in range(20)]
 
 #draws the background of the game
@@ -31,69 +32,39 @@ def gameMode_drawGround(app, canvas):
 #GAME BOARD DICTIONARY
 #makes tree objects
 def gameMode_treeObjects(app):
-    app.treeList = [Tree(app, app.boardTreeLevels[0], 
+    app.treeList = [
+                    Tree(app, app.boardTreeLevels[0], 
                         app.boardXCoords[0], app.boardYCoords[0]),
-                    Tree(app, app.boardTreeLevels[1], 
-                        app.boardXCoords[1], app.boardYCoords[1]),
                     Tree(app, app.boardTreeLevels[2], 
                         app.boardXCoords[2], app.boardYCoords[2]),
                     Tree(app, app.boardTreeLevels[3], 
                         app.boardXCoords[3], app.boardYCoords[3]),
-                    Tree(app, app.boardTreeLevels[4],
-                        app.boardXCoords[4], app.boardYCoords[4]),
-                    Tree(app, app.boardTreeLevels[5], 
-                        app.boardXCoords[5], app.boardYCoords[5]),
-                    Tree(app, app.boardTreeLevels[6], 
-                        app.boardXCoords[6], app.boardYCoords[6]),
                     Tree(app, app.boardTreeLevels[7], 
                         app.boardXCoords[7], app.boardYCoords[7]),
                     Tree(app, app.boardTreeLevels[8],
                         app.boardXCoords[8], app.boardYCoords[8]),
-                    Tree(app, app.boardTreeLevels[9], 
-                        app.boardXCoords[9], app.boardYCoords[9]),
                     Tree(app, app.boardTreeLevels[10], 
                         app.boardXCoords[10], app.boardYCoords[10]),
                     Tree(app, app.boardTreeLevels[11],
                         app.boardXCoords[11], app.boardYCoords[11]),
-                    Tree(app, app.boardTreeLevels[12],
-                        app.boardXCoords[12], app.boardYCoords[12]),
                     Tree(app, app.boardTreeLevels[13],
-                        app.boardXCoords[13], app.boardYCoords[13]),
-                    Tree(app, app.boardTreeLevels[14], 
-                        app.boardXCoords[14], app.boardYCoords[14]),
-                    Tree(app, app.boardTreeLevels[15], 
-                        app.boardXCoords[15], app.boardYCoords[15])]
+                        app.boardXCoords[13], app.boardYCoords[13])]
 
 #makes water objects
 def gameMode_waterObjects(app):
-    app.waterList = [WateringHole(app, app.boardTreeLevels[0], 
-                        app.boardXCoords[0], app.boardYCoords[0]),
+    app.waterList = [
                     WateringHole(app, app.boardTreeLevels[1], 
                         app.boardXCoords[1], app.boardYCoords[1]),
-                    WateringHole(app, app.boardTreeLevels[2], 
-                        app.boardXCoords[2], app.boardYCoords[2]),
-                    WateringHole(app, app.boardTreeLevels[3], 
-                        app.boardXCoords[3], app.boardYCoords[3]),
                     WateringHole(app, app.boardTreeLevels[4],
                         app.boardXCoords[4], app.boardYCoords[4]),
                     WateringHole(app, app.boardTreeLevels[5], 
                         app.boardXCoords[5], app.boardYCoords[5]),
                     WateringHole(app, app.boardTreeLevels[6], 
                         app.boardXCoords[6], app.boardYCoords[6]),
-                    WateringHole(app, app.boardTreeLevels[7], 
-                        app.boardXCoords[7], app.boardYCoords[7]),
-                    WateringHole(app, app.boardTreeLevels[8],
-                        app.boardXCoords[8], app.boardYCoords[8]),
                     WateringHole(app, app.boardTreeLevels[9], 
                         app.boardXCoords[9], app.boardYCoords[9]),
-                    WateringHole(app, app.boardTreeLevels[10], 
-                        app.boardXCoords[10], app.boardYCoords[10]),
-                    WateringHole(app, app.boardTreeLevels[11],
-                        app.boardXCoords[11], app.boardYCoords[11]),
                     WateringHole(app, app.boardTreeLevels[12],
                         app.boardXCoords[12], app.boardYCoords[12]),
-                    WateringHole(app, app.boardTreeLevels[13],
-                        app.boardXCoords[13], app.boardYCoords[13]),
                     WateringHole(app, app.boardTreeLevels[14], 
                         app.boardXCoords[14], app.boardYCoords[14]),
                     WateringHole(app, app.boardTreeLevels[15], 
