@@ -13,91 +13,117 @@ def gameMode_grass(app):
     sizeIm = app.grassImage.size
     app.grassImageHeight = sizeIm[1]
     app.grassImageWidth = sizeIm[0]
+    print(app.grassImageWidth, app.grassImageHeight)
+    print(app.width, app.height)
+
+    app.boardXCoords = [random.randint(x, x+200) for x in range(-app.width, 2*app.width)]
+    app.boardYCoords = [random.randint(y, y+50) for y in range(0, app.height)]
+    app.boardTreeLevels = [random.randint(70,100) for i in range(20)]
 
 #draws the background of the game
 def gameMode_drawGround(app, canvas):
     imageGrass = ImageTk.PhotoImage(app.grassImage)
-    for dw in range(0, app.width, 384):
+    for dw in range(-app.width, 2*app.width, 384):
         for dh in range(0, app.height, 384):
             canvas.create_image(dw, dh,
                                 image = imageGrass)
 
 #GAME BOARD DICTIONARY
-def gameMode_createRandomStats(app):
-    X = random.randint(0, app.width)
-    Y = random.randint(0, app.height)
-    level = random.randint(70, 100)
-    return X, Y, level
+#makes tree objects
+def gameMode_treeObjects(app):
+    app.treeList = [Tree(app, app.boardTreeLevels[0], 
+                        app.boardXCoords[0], app.boardYCoords[0]),
+                    Tree(app, app.boardTreeLevels[1], 
+                        app.boardXCoords[1], app.boardYCoords[1]),
+                    Tree(app, app.boardTreeLevels[2], 
+                        app.boardXCoords[2], app.boardYCoords[2]),
+                    Tree(app, app.boardTreeLevels[3], 
+                        app.boardXCoords[3], app.boardYCoords[3]),
+                    Tree(app, app.boardTreeLevels[4],
+                        app.boardXCoords[4], app.boardYCoords[4]),
+                    Tree(app, app.boardTreeLevels[5], 
+                        app.boardXCoords[5], app.boardYCoords[5]),
+                    Tree(app, app.boardTreeLevels[6], 
+                        app.boardXCoords[6], app.boardYCoords[6]),
+                    Tree(app, app.boardTreeLevels[7], 
+                        app.boardXCoords[7], app.boardYCoords[7]),
+                    Tree(app, app.boardTreeLevels[8],
+                        app.boardXCoords[8], app.boardYCoords[8]),
+                    Tree(app, app.boardTreeLevels[9], 
+                        app.boardXCoords[9], app.boardYCoords[9]),
+                    Tree(app, app.boardTreeLevels[10], 
+                        app.boardXCoords[10], app.boardYCoords[10]),
+                    Tree(app, app.boardTreeLevels[11],
+                        app.boardXCoords[11], app.boardYCoords[11]),
+                    Tree(app, app.boardTreeLevels[12],
+                        app.boardXCoords[12], app.boardYCoords[12]),
+                    Tree(app, app.boardTreeLevels[13],
+                        app.boardXCoords[13], app.boardYCoords[13]),
+                    Tree(app, app.boardTreeLevels[14], 
+                        app.boardXCoords[14], app.boardYCoords[14]),
+                    Tree(app, app.boardTreeLevels[15], 
+                        app.boardXCoords[15], app.boardYCoords[15])]
+
+#makes water objects
+def gameMode_waterObjects(app):
+    app.waterList = [WateringHole(app, app.boardTreeLevels[0], 
+                        app.boardXCoords[0], app.boardYCoords[0]),
+                    WateringHole(app, app.boardTreeLevels[1], 
+                        app.boardXCoords[1], app.boardYCoords[1]),
+                    WateringHole(app, app.boardTreeLevels[2], 
+                        app.boardXCoords[2], app.boardYCoords[2]),
+                    WateringHole(app, app.boardTreeLevels[3], 
+                        app.boardXCoords[3], app.boardYCoords[3]),
+                    WateringHole(app, app.boardTreeLevels[4],
+                        app.boardXCoords[4], app.boardYCoords[4]),
+                    WateringHole(app, app.boardTreeLevels[5], 
+                        app.boardXCoords[5], app.boardYCoords[5]),
+                    WateringHole(app, app.boardTreeLevels[6], 
+                        app.boardXCoords[6], app.boardYCoords[6]),
+                    WateringHole(app, app.boardTreeLevels[7], 
+                        app.boardXCoords[7], app.boardYCoords[7]),
+                    WateringHole(app, app.boardTreeLevels[8],
+                        app.boardXCoords[8], app.boardYCoords[8]),
+                    WateringHole(app, app.boardTreeLevels[9], 
+                        app.boardXCoords[9], app.boardYCoords[9]),
+                    WateringHole(app, app.boardTreeLevels[10], 
+                        app.boardXCoords[10], app.boardYCoords[10]),
+                    WateringHole(app, app.boardTreeLevels[11],
+                        app.boardXCoords[11], app.boardYCoords[11]),
+                    WateringHole(app, app.boardTreeLevels[12],
+                        app.boardXCoords[12], app.boardYCoords[12]),
+                    WateringHole(app, app.boardTreeLevels[13],
+                        app.boardXCoords[13], app.boardYCoords[13]),
+                    WateringHole(app, app.boardTreeLevels[14], 
+                        app.boardXCoords[14], app.boardYCoords[14]),
+                    WateringHole(app, app.boardTreeLevels[15], 
+                        app.boardXCoords[15], app.boardYCoords[15])]
 
 #creates a game board with 5 random generated trees and 5 randomly generated 
 #waterholes
 def gameMode_makeGameBoard(app):
-    #creates five randomly spawned trees
-    tree1X, tree1Y, tree1Leaf = gameMode_createRandomStats(app)
-    app.tree1 = Tree(tree1Leaf, tree1X, tree1Y)
-    app.tree1.treeImage(app)
-
-    tree2X, tree2Y, tree2Leaf = gameMode_createRandomStats(app)
-    app.tree2 = Tree(tree2Leaf, tree2X, tree2Y)
-    app.tree2.treeImage(app)
-
-    tree3X, tree3Y, tree3Leaf = gameMode_createRandomStats(app)
-    app.tree3 = Tree(tree3Leaf, tree3X, tree3Y)
-    app.tree3.treeImage(app)
-
-    tree4X, tree4Y, tree4Leaf = gameMode_createRandomStats(app)
-    app.tree4 = Tree(tree4Leaf, tree4X, tree4Y)
-    app.tree4.treeImage(app)
-
-    tree5X, tree5Y, tree5Leaf = gameMode_createRandomStats(app)
-    app.tree5 = Tree(tree5Leaf, tree5X, tree5Y)
-    app.tree5.treeImage(app)
-
-    #creates 5 randomly spawned watering holes
-    tree1X, tree1Y, tree1Leaf = gameMode_createRandomStats(app)
-    app.water1 = WateringHole(tree1Leaf, tree1X, tree1Y)
-    app.water1.waterImage(app)
-
-    tree2X, tree2Y, tree2Leaf = gameMode_createRandomStats(app)
-    app.water2 = WateringHole(tree2Leaf, tree2X, tree2Y)
-    app.water2.waterImage(app)
-
-    tree3X, tree3Y, tree3Leaf = gameMode_createRandomStats(app)
-    app.water3 = WateringHole(tree3Leaf, tree3X, tree3Y)
-    app.water3.waterImage(app)
-
-    tree4X, tree4Y, tree4Leaf = gameMode_createRandomStats(app)
-    app.water4 = WateringHole(tree4Leaf, tree4X, tree4Y)
-    app.water4.waterImage(app)
-
-    tree5X, tree5Y, tree5Leaf = gameMode_createRandomStats(app)
-    app.water5 = WateringHole(tree5Leaf, tree5X, tree5Y)
-    app.water5.waterImage(app)
+    #creates 15 randomly spawned trees
+    gameMode_treeObjects(app)
+    gameMode_waterObjects(app)
     
 #draws the randomly spawned background
 def gameMode_drawGameBoard(app, canvas):
-    #draws trees
-    app.tree1.drawTree(canvas)
-    app.tree2.drawTree(canvas)
-    app.tree3.drawTree(canvas)
-    app.tree4.drawTree(canvas)
-    app.tree5.drawTree(canvas)
+    for item in app.treeList:
+        item.drawTree(canvas)
+    
+    for item in app.waterList:
+        item.drawWater(canvas)
 
-    #draws water
-    app.water1.drawWater(canvas)
-    app.water2.drawWater(canvas)
-    app.water3.drawWater(canvas)
-    app.water4.drawWater(canvas)
-    app.water5.drawWater(canvas)
+
 
 def gameMode_statBoard(app, canvas):
     canvas.create_rectangle(10, 10, 150, 250, fill="white", 
                             outline="black", width =5)
-    canvas.create_text(80, 50, text = f"Hunger: {app.player.hunger}", 
+    canvas.create_text(80, 50, text = f"Hunger: {round(app.player.hunger,1)}", 
                         fill = "black", font='Helvetica 20 bold')
-    canvas.create_text(80, 100, text = f"Thirst: {app.player.thirst}",
+    canvas.create_text(80, 100, text = f"Thirst: {round(app.player.thirst,1)}",
                         fill = "black", font='Helvetica 20 bold')
-    canvas.create_text(80, 150, text = f"Energy: {app.player.energy}",
+    canvas.create_text(80, 150, text = f"Energy: {round(app.player.energy,1)}",
                         fill = "black", font='Helvetica 20 bold')
     canvas.create_text(80, 200, text = f"Age: {app.player.lifeState}",
                         fill = "black", font='Helvetica 20 bold')

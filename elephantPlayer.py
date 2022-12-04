@@ -69,4 +69,3 @@ def playerStill(app, event):
         app.player.elephantMoveRight = False
         app.player.elephantMoveDown = False
         app.player.elephantMoveUp = False
-    print(app.player.travel, app.player.hunger, app.player.thirst,app.player.energy)

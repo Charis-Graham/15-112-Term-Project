@@ -13,6 +13,8 @@ def gameMode_initiate(app):
     app.yScroll = 0 
     app.marginScroll = 100
 
+    app.timerDelay = 1
+
     #draw grass
     gameMode_grass(app)
 
@@ -31,52 +33,61 @@ def gameMode_keyPressed(app, event):
     #controls the player moving
     playerMove(app, event)
 
-    #to be removed later, these are controls to test certain unfinished 
-    #elements of water and tree classes
+    #what happens if the elephant drinks water
     if event.key == "d":
         if app.player.intersectsObject(app.water1):
             app.water1.goMuddy(app)
-            app.water1.waterLevel -= 10
-            app.player.thirst += 10
+            if app.player.thirst > 10:
+                app.water1.waterLevel -= 10
+                app.player.thirst -= 10
         elif app.player.intersectsObject(app.water2):
             app.water2.goMuddy(app)
-            app.water2.waterLevel -= 10
-            app.player.thirst += 10
+            if app.player.thirst > 10:
+                app.water2.waterLevel -= 10
+                app.player.thirst -= 10
         elif app.player.intersectsObject(app.water3):
             app.water3.goMuddy(app)
-            app.water3.waterLevel -= 10
-            app.player.thirst += 10
+            if app.player.thirst > 10:
+                app.water3.waterLevel -= 10
+                app.player.thirst -= 10
         elif app.player.intersectsObject(app.water4):
             app.water4.goMuddy(app)
-            app.water4.waterLevel -= 10
-            app.player.thirst += 10
+            if app.player.thirst > 10:
+                app.water4.waterLevel -= 10
+                app.player.thirst -= 10
         elif app.player.intersectsObject(app.water5):
             app.water5.goMuddy(app)
-            app.water5.waterLevel -= 10
-            app.player.thirst += 10
-        
+            if app.player.thirst > 10:
+                app.water5.waterLevel -= 10
+                app.player.thirst -= 10
+    #if the elephant eats    
     elif event.key == "e":
         if app.player.intersectsObject(app.tree1):
             app.tree1.goLeaves(app)
-            app.tree1.leafLevel -= 10
-            app.player.hunger += 10
+            if app.player.hunger > 10:
+                app.tree1.leafLevel -= 10
+                app.player.hunger -= 10
         elif app.player.intersectsObject(app.tree2):
             app.tree2.goLeaves(app)
-            app.tree2.leafLevel -= 10
-            app.player.hunger += 10
+            if app.player.hunger > 10:
+                app.tree2.leafLevel -= 10
+                app.player.hunger -= 10
         elif app.player.intersectsObject(app.tree3):
             app.tree3.goLeaves(app)
-            app.tree3.leafLevel -= 10
-            app.player.hunger += 10
+            if app.player.hunger > 10:
+                app.tree3.leafLevel -= 10
+                app.player.hunger -= 10
         elif app.player.intersectsObject(app.tree4):
             app.tree4.goLeaves(app)
-            app.tree4.leafLevel -= 10
-            app.player.hunger += 10
+            if app.player.hunger > 10:
+                app.tree4.leafLevel -= 10
+                app.player.hunger -= 10
         elif app.player.intersectsObject(app.tree5):
             app.tree5.goLeaves(app)
-            app.tree5.leafLevel -= 10
-            app.player.hunger += 10
-
+            if app.player.hunger > 10:
+                app.tree5.leafLevel -= 10
+                app.player.hunger -= 10
+    #gets the help screen
     elif event.key == "h":
         app.mode = "helpScreenMode"
 
@@ -104,15 +115,7 @@ def gameMode_redrawAll(app, canvas):
     #draws the ground
     gameMode_drawGround(app, canvas)
 
-    # #draws a tree
-    # app.tree.X -= app.xScroll
-    # app.tree.drawTree(canvas)
-
-    # #draw water
-    # app.water.X -= app.xScroll
-    # app.water.drawWater(canvas)
-    
-
+    #generates and draws the game board
     gameMode_statBoard(app, canvas)
     gameMode_drawGameBoard(app, canvas)
 
@@ -123,5 +126,5 @@ def gameMode_redrawAll(app, canvas):
         app.player.elephantMoveUp == False):
         app.player.drawElephantStill(app, canvas)
     else:
-        app.player.imageX -= app.xScroll
+        #app.player.imageX -= app.xScroll
         app.player.drawElephantWalk(app, canvas)

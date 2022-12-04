@@ -144,15 +144,13 @@ class Elephant(object):
                 
 #creates the watering hole class
 class WateringHole(object):
-    def __init__(self, waterLevel, x, y):
+    def __init__(self, app, waterLevel, x, y):
         self.waterLevel = waterLevel
         self.image = ''
         self.imageHeight = 0
         self.imageWidth = 0
         self.X, self.Y = x, y
-        
-    #crops the water image
-    def waterImage(self, app):
+
         #loads the image
         #Water PNG comes from https://opengameart.org/content/lpc-animated-water-and-fire 
         #Under CC-BY 3.0
@@ -167,12 +165,6 @@ class WateringHole(object):
                                     self.imageHeight//4, 
                                     self.imageWidth//2,
                                     2*(self.imageHeight//3.3)))
-
-    #generates a random new coordinate for the water
-    def randomWaterSpawn(self, app):
-        self.X = random.randint(0, app.width)
-        self.Y = random.randint(0, app.height)
-        return self.X, self.Y
             
     #draws the water on the canvas
     def drawWater(self, canvas):
@@ -209,15 +201,13 @@ class WateringHole(object):
 
 #creates the tree object
 class Tree(object):
-    def __init__(self, leafLevel, x, y):
+    def __init__(self, app, leafLevel, x, y):
         self.leafLevel = leafLevel
         self.image = ''
         self.imageHeight = 0
         self.imageWidth = 0
         self.X, self.Y = x, y
-    
-    #crops the tree image
-    def treeImage(self, app):
+        
         #Tree PNG comes from https://opengameart.org/content/savannah-tiles 
         #Under CC-BY-SA 3.0
         #Created by Modanung 
@@ -225,7 +215,7 @@ class Tree(object):
         sizeIm = self.image.size
         self.imageHeight = sizeIm[1]
         self.imageWidth = sizeIm[0]
-
+    
     #draws the tree image
     def drawTree(self, canvas):
         canvas.create_image(self.X, self.Y, image=ImageTk.PhotoImage(self.image))
