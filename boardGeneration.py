@@ -9,10 +9,11 @@ def gameMode_grass(app):
     #Under CC0
     #Created by Proxy Games
     app.grassImage = app.loadImage("images/grass/grass3.jpg")
-    app.grassImage = app.scaleImage(app.grassImage, 12)
+    app.grassImage = app.scaleImage(app.grassImage, 20)
     sizeIm = app.grassImage.size
     app.grassImageHeight = sizeIm[1]
     app.grassImageWidth = sizeIm[0]
+    print(app.grassImageHeight, app.grassImageWidth)
 
     #makes the random coordinates for the water and tree objects on the board
     app.boardXCoords = ([random.randint(x, x+200) for x in range(-app.width,0, 250)]+
@@ -24,16 +25,15 @@ def gameMode_grass(app):
 #draws the background of the game
 def gameMode_drawGround(app, canvas):
     imageGrass = ImageTk.PhotoImage(app.grassImage)
-    for dw in range(-app.width, 2*app.width, 384):
-        for dh in range(0, app.height, 384):
+    for dw in range(-app.width, 2*app.width, 640):
+        for dh in range(0, app.height, 640):
             canvas.create_image(dw, dh,
                                 image = imageGrass)
 
 #GAME BOARD DICTIONARY
 #makes tree objects
 def gameMode_treeObjects(app):
-    app.treeList = [
-                    Tree(app, app.boardTreeLevels[0], 
+    app.treeList = [Tree(app, app.boardTreeLevels[0], 
                         app.boardXCoords[0], app.boardYCoords[0]),
                     Tree(app, app.boardTreeLevels[2], 
                         app.boardXCoords[2], app.boardYCoords[2]),
@@ -70,12 +70,48 @@ def gameMode_waterObjects(app):
                     WateringHole(app, app.boardTreeLevels[15], 
                         app.boardXCoords[15], app.boardYCoords[15])]
 
+
+def gameMode_elephants(app):
+    coords = []
+    while len(coords) < 7:
+        rand = random.randint(0, 15)
+        if rand not in coords:
+            coords.append(rand)
+    print(coords)
+
+    app.elephantList = [
+                    Elephant(app, "mom", 0, 0, 10, 
+                        app.boardXCoords[coords[0]]+30, 
+                        app.boardYCoords[coords[0]]+30),
+                    Elephant(app, "adult", 0, 0, 10, 
+                        app.boardXCoords[coords[1]]+30, 
+                        app.boardYCoords[coords[1]]+30),
+                    Elephant(app, "adult", 0, 0, 10,
+                        app.boardXCoords[coords[2]]+30, 
+                        app.boardYCoords[coords[2]]+30),
+                    Elephant(app, "adult", 0, 0, 10,
+                        app.boardXCoords[coords[3]]+30, 
+                        app.boardYCoords[coords[3]]+30),
+                    Elephant(app, "adult", 0, 0, 10, 
+                        app.boardXCoords[coords[4]]+30, 
+                        app.boardYCoords[coords[4]]+30),
+                    Elephant(app, "adult", 0, 0, 10, 
+                        app.boardXCoords[coords[5]]+30, 
+                        app.boardYCoords[coords[5]]+30),
+                    Elephant(app, "adult", 0, 0, 10, 
+                        app.boardXCoords[coords[6]]+30, 
+                        app.boardYCoords[coords[6]]+30)]
+    
+    for elephant in app.elephantList:
+        elephant.elephantStandStill(app)
+
 #creates a game board with 5 random generated trees and 5 randomly generated 
 #waterholes
 def gameMode_makeGameBoard(app):
     #creates 15 randomly spawned trees
     gameMode_treeObjects(app)
     gameMode_waterObjects(app)
+    gameMode_elephants(app)
     
 #draws the randomly spawned background
 def gameMode_drawGameBoard(app, canvas):
@@ -84,7 +120,9 @@ def gameMode_drawGameBoard(app, canvas):
     
     for item in app.waterList:
         item.drawWater(canvas)
-
+    
+    for item in app.elephantList:
+        item.drawElephantStill(app, canvas)
 
 
 def gameMode_statBoard(app, canvas):
@@ -97,5 +135,4 @@ def gameMode_statBoard(app, canvas):
     canvas.create_text(80, 150, text = f"Energy: {round(app.player.energy,1)}",
                         fill = "black", font='Helvetica 20 bold')
     canvas.create_text(80, 200, text = f"Age: {app.player.lifeState}",
-                        fill = "black", font='Helvetica 20 bold')
-                    
+                        fill = "black", font='Helvetica 20 bold')            

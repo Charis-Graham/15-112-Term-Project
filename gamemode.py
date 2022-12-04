@@ -43,11 +43,12 @@ def gameMode_keyPressed(app, event):
        
     #if the elephant eats    
     elif event.key == "e":
-        if app.player.intersectsObject(app.tree1):
-            app.tree1.goLeaves(app)
-            if app.player.hunger > 10:
-                app.tree1.leafLevel -= 10
-                app.player.hunger -= 10
+        for tree in app.treeList:
+            if app.player.intersectsObject(tree):
+                tree.goLeaves(app)
+                if app.player.hunger > 10:
+                    tree.leafLevel -= 10
+                    app.player.hunger -= 10
         
     #gets the help screen
     elif event.key == "h":
@@ -66,7 +67,7 @@ def gameMode_timerFired(app):
     #https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#spritesheetsWithCropping
     app.player.spriteCounter = (1 + app.player.spriteCounter) % app.player.numFrames
 
-    gameMode_refusePlayerOverlap(app)
+    #gameMode_refusePlayerOverlap(app)
 
     #keeps the game mode from being resized
     #will probably be removed later
