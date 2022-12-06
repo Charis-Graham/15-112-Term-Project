@@ -112,17 +112,6 @@ class Elephant(object):
         #this puts the position of the elephant via the top-left corner
         canvas.create_image(self.imageX, self.imageY, 
                             image=ImageTk.PhotoImage(elephant))
-
-    def elephantWeaken(self):
-        healthMetrics = [self.hunger, self.thirst, self.energy]
-        if (self.travel >= 5 and healthMetrics[0] > 0 or 
-                healthMetrics[1] > 0 or healthMetrics[2] > 0):
-            healthMetrics[random.randint(0,2)] -= 5
-        else:
-            self.elephantMoveLeft = False
-            self.elephantMoveRight = False
-            self.elephantMoveDown = False
-            self.elephantMoveUp = False
     
     def shareWater(self):
         self.thirst += 1
@@ -134,25 +123,21 @@ class Elephant(object):
     #Tuesday, November 22, 2022 by Pat Virtue
     #which was based on side scroller #3 on 
     #https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#sidescrollerExamples
+    #During 12/6/22 Lecture, Ollie Arrison helped me debug the bounds function.
     def getBounds(self):
     # returns absolute bounds, not taking xScroll into account
-        (x0, y1) = (self.imageX, self.stillImageHeight/2 - self.imageY)
-        (x1, y0) = (x0 + self.stillImageWidth, y1 - self.stillImageHeight)
+        (x0, y1) = (self.imageX - self.stillImageWidth/4, 
+                    self.stillImageHeight/2 + (self.imageY))
+        (x1, y0) = (x0 + 3*(self.stillImageWidth/4), 
+                    y1 - (self.stillImageHeight))
         return x0, y0, x1, y1
-    
-    def overlap(self, other):
-        # return l2<=r1 and t2<=b1 and l1<=r2 and t1<=b2
-        (ax0, ay0, ax1, ay1) = self.getBounds()
-        (bx0, by0, bx1, by1) = other.getBounds()
-        return ((ax1 > bx0) and (bx1 > ax0) and
-                (ay1 > by0) and (by1 > ay0))
     
     def intersectsObject(self, other):
         # return l2<=r1 and t2<=b1 and l1<=r2 and t1<=b2
         (ax0, ay0, ax1, ay1) = self.getBounds()
         (bx0, by0, bx1, by1) = other.getBounds()
-        return ((ax1 >= bx0) and (bx1 >= ax0) and
-                (ay1 >= by0) and (by1 >= ay0))
+        return ((ax0 <= bx0) and (ax1 >= bx1) and
+                (ay0 <= by1) and (ay1 >= by0))
 
                 
 #creates the watering hole class
@@ -207,8 +192,9 @@ class WateringHole(object):
         sizeIm = self.image.size
         self.imageHeight = sizeIm[1]
         self.imageWidth = sizeIm[0]
-        (x0, y1) = (self.X, self.imageHeight/2 - self.Y)
-        (x1, y0) = (x0 + self.imageWidth, y1 - self.imageHeight)
+        (x0, y1) = (self.X+self.imageWidth/3, self.imageHeight/2 + self.Y)
+        (x1, y0) = (x0 - self.imageWidth, y1 - self.imageHeight)
+        print("Tree: x0:", x0, "y0:", y0, "x1:", x1, "y1:", y1)
         return x0, y0, x1, y1
 
     def intersectsObject(self, other):
@@ -258,8 +244,8 @@ class Tree(object):
     #https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#sidescrollerExamples
     def getBounds(self):
     # returns absolute bounds, not taking xScroll into account
-        (x0, y1) = (self.X, self.imageHeight/2 - self.Y)
-        (x1, y0) = (x0 + self.imageWidth, y1 - (self.imageHeight))
+        (x0, y1) = (self.X+(self.imageWidth/3), self.imageHeight/2 + self.Y)
+        (x1, y0) = (x0 - self.imageWidth, y1 - (self.imageHeight))
         return x0, y0, x1, y1
     
     def intersectsObject(self, other):
