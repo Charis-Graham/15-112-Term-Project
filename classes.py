@@ -133,11 +133,15 @@ class Elephant(object):
         return x0, y0, x1, y1
     
     def intersectsObject(self, other):
-        # return l2<=r1 and t2<=b1 and l1<=r2 and t1<=b2
+        # return if intersects
         (ax0, ay0, ax1, ay1) = self.getBounds()
         (bx0, by0, bx1, by1) = other.getBounds()
-        return ((ax0 <= bx0) and (ax1 >= bx1) and
-                (ay0 <= by1) and (ay1 >= by0))
+        if isinstance(other, Tree) or isinstance(other, WateringHole):
+            return ((ax0 <= bx0) and (ax1 >= bx1) and
+                    (ay0 <= by1) and (ay1 >= by0))
+        else:
+            return ((ax0 <= bx1) and (ax1 >= bx1) and
+                    (ay0 <= by1) and (ay1 >= by0))
 
                 
 #creates the watering hole class
@@ -194,7 +198,6 @@ class WateringHole(object):
         self.imageWidth = sizeIm[0]
         (x0, y1) = (self.X+self.imageWidth/3, self.imageHeight/2 + self.Y)
         (x1, y0) = (x0 - self.imageWidth, y1 - self.imageHeight)
-        print("Tree: x0:", x0, "y0:", y0, "x1:", x1, "y1:", y1)
         return x0, y0, x1, y1
 
     def intersectsObject(self, other):

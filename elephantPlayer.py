@@ -97,6 +97,7 @@ def playerMove(app, event):
     
     gameMode_makePlayerVisible(app)
 
+
 #defines what happens if the player is not moving
 def playerStill(app, event):
     if event.key in ["Right", "Left", "Up", "Down"]:

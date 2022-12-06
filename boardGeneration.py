@@ -123,17 +123,18 @@ def gameMode_drawGameBoard(app, canvas):
         for item in app.elephantList:
             item.drawElephantStill(app, canvas)
 
+#creates the popups for the challenges
 def gameMode_challenges(app):
     app.challenge1 = app.loadImage("images/challenge1.png")
     app.challenge2 = app.loadImage("images/challenge2.png")
     app.challenge3 = app.loadImage("images/challenge3.png")
     app.challenge4 = app.loadImage("images/challenge4.png")
     app.challenge5 = app.loadImage("images/challenge5.png")
-    app.challenge1 = app.scaleImage(app.challenge1, 0.5)
-    app.challenge2 = app.scaleImage(app.challenge2, 0.5)
-    app.challenge3 = app.scaleImage(app.challenge3, 0.5)
-    app.challenge4 = app.scaleImage(app.challenge4, 0.5)
-    app.challenge5 = app.scaleImage(app.challenge5, 0.5)
+    app.challenge1 = app.scaleImage(app.challenge1, 0.75)
+    app.challenge2 = app.scaleImage(app.challenge2, 0.75)
+    app.challenge3 = app.scaleImage(app.challenge3, 0.75)
+    app.challenge4 = app.scaleImage(app.challenge4, 0.75)
+    app.challenge5 = app.scaleImage(app.challenge5, 0.75)
 
 
 def gameMode_drawChallenge(app, canvas):

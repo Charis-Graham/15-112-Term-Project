@@ -5,6 +5,7 @@ from classes import *
 from startscreen import *
 from helpscreen import *
 from endScreen import *
+from challenges import *
 
 #initiates the game mode 
 def gameMode_initiate(app):
@@ -13,10 +14,14 @@ def gameMode_initiate(app):
     app.xScroll = 0
     app.marginScroll = 100
 
-    app.timerDelay = 1
-
+    #keeps track of which challenge the player is on
     app.challengeCount = 1
     app.elephantIntersectCount = 0
+    app.elephantWaterShared = 0
+    app.elephantFoodShared = 0
+    app.elephantIntersected = []
+    app.elephantFed = []
+    app.elephantWater = []
 
     #draw grass
     gameMode_grass(app)
@@ -88,7 +93,7 @@ def gameMode_timerFired(app):
     #checks if the death state is matched
     gameMode_death(app)
 
-    #keeps track of elements for challenge 3
+    #keeps track of elements for challenges
     gameMode_elephantIntersectCount(app)
     gameMode_checkSharedWater(app)
     gameMode_checkSharedFood(app)
@@ -99,35 +104,6 @@ def gameMode_timerFired(app):
     if (app.width != app.helpScreen.size[0] 
         or app.height != app.helpScreen.size[1]):
         app.setSize(app.helpScreen.size[0], app.helpScreen.size[1])
-
-#keeps track of all elephants that the player has intersected with
-def gameMode_elephantIntersectCount(app):
-    for elephant in app.elephantList:
-        if app.player.intersectsObject(elephant):
-            app.elephantIntersectCount += 1
-
-def gameMode_checkSharedWater(app):
-    app.elephantWaterShared = 0
-    for elephant in app.elephantList:
-        if elephant.thirst > 0:
-            app.elephantWaterShared += 1
-
-def gameMode_checkSharedFood(app):
-    app.elephantFoodShared = 0
-    for elephant in app.elephantList:
-        if elephant.hunger > 0:
-            app.elephantFoodShared += 1
-
-#controls the challenges
-def gameMode_challenge(app):
-    if app.player.intersectsObject(app.elephantList[0]):
-        app.challengeCount = 2
-        app.player.lifeState = "adult"
-        app.player.energy = 20
-    elif app.elephantIntersectCount >= 4 and app.player.lifeState == "adult":
-        app.challengeCount = 3
-    elif app.elephantFoodShared > 3 and app.player.lifeState == "adult":
-        app.challengeCount = 4
 
 #draws the board
 def gameMode_redrawAll(app, canvas):
@@ -146,17 +122,25 @@ def gameMode_redrawAll(app, canvas):
     canvas.create_oval(x0, y0, x0+5, y0+5, fill = "white")
     canvas.create_oval(x1, y1, x1+5, y1+5, fill = "black")
 
-    for tree in app.treeList:
-        x, y, xa, ya = tree.getBounds()
-        canvas.create_rectangle(x, y, xa, ya, fill = "red")
-        canvas.create_oval(x, y, x+5, y+5, fill = "white")
-        canvas.create_oval(xa, ya, xa+5, ya+5, fill = "black")
+    # for tree in app.treeList:
+    #     x, y, xa, ya = tree.getBounds()
+    #     canvas.create_rectangle(x, y, xa, ya, fill = "red")
+    #     canvas.create_oval(x, y, x+5, y+5, fill = "white")
+    #     canvas.create_oval(xa, ya, xa+5, ya+5, fill = "black")
     
-    for water in app.waterList:
-        x, y, xb, yb = water.getBounds()
-        canvas.create_rectangle(x, y, xb, yb, fill = "blue")
+    # for water in app.waterList:
+    #     x, y, xb, yb = water.getBounds()
+    #     canvas.create_rectangle(x, y, xb, yb, fill = "blue")
+    #     canvas.create_oval(x, y, x+5, y+5, fill = "white")
+    #     canvas.create_oval(xb, yb, xb+5, yb+5, fill = "black")
+    
+    for elephant in app.elephantList:
+        x, y, xb, yb = elephant.getBounds()
+        canvas.create_rectangle(x, y, xb, yb, fill = "purple")
         canvas.create_oval(x, y, x+5, y+5, fill = "white")
         canvas.create_oval(xb, yb, xb+5, yb+5, fill = "black")
+        print("Hunger:", elephant.hunger, "Thirst:", elephant.thirst)
+
 
     #draws the player elephant
     if (app.player.elephantMoveLeft == False and 
