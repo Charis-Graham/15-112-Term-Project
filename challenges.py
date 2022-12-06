@@ -21,6 +21,10 @@ def gameMode_checkSharedFood(app):
             app.elephantFoodShared += 1
             app.elephantFed.append(elephant)
 
+#challenge 5
+def gameMode_checkDeathMet(app):
+    pass
+
 #controls the challenges
 def gameMode_challenge(app):
     if (app.player.intersectsObject(app.elephantList[0]) and 
@@ -36,3 +40,10 @@ def gameMode_challenge(app):
             app.elephantFoodShared >= 3 and 
             app.player.lifeState == "adult"):
         app.challengeCount = 4
+    elif (app.challengeCount == 4 and 
+            app.elephantWaterShared >= 3 and 
+            app.player.lifeState == "adult"):
+        app.challengeCount = 5
+        app.player.lifeState = "elder"
+    elif (app.challengeCount == 5):
+        app.mode = "wonMode"

@@ -34,8 +34,10 @@ def gameMode_initiate(app):
     app.player.elephantWalking(app)
     app.player.elephantStandStill(app)
 
+    #makes the gameboard and challenges elements
     gameMode_makeGameBoard(app)
     gameMode_challenges(app)
+    gameMode_elephantBones(app)
 
 #controls the available keyboard interactions
 def gameMode_keyPressed(app, event):
@@ -116,6 +118,7 @@ def gameMode_redrawAll(app, canvas):
 
     #initiates the challenges
     gameMode_drawChallenge(app, canvas)
+    gameMode_challengeProgression(app, canvas)
 
     x0, y0, x1, y1 = app.player.getBounds()
     canvas.create_rectangle(x0, y0, x1, y1, fill = "green")
@@ -134,12 +137,12 @@ def gameMode_redrawAll(app, canvas):
     #     canvas.create_oval(x, y, x+5, y+5, fill = "white")
     #     canvas.create_oval(xb, yb, xb+5, yb+5, fill = "black")
     
-    for elephant in app.elephantList:
-        x, y, xb, yb = elephant.getBounds()
-        canvas.create_rectangle(x, y, xb, yb, fill = "purple")
-        canvas.create_oval(x, y, x+5, y+5, fill = "white")
-        canvas.create_oval(xb, yb, xb+5, yb+5, fill = "black")
-        print("Hunger:", elephant.hunger, "Thirst:", elephant.thirst)
+    # for elephant in app.elephantList:
+    #     x, y, xb, yb = elephant.getBounds()
+    #     canvas.create_rectangle(x, y, xb, yb, fill = "purple")
+    #     canvas.create_oval(x, y, x+5, y+5, fill = "white")
+    #     canvas.create_oval(xb, yb, xb+5, yb+5, fill = "black")
+    #     print("Hunger:", elephant.hunger, "Thirst:", elephant.thirst)
 
 
     #draws the player elephant
@@ -150,4 +153,3 @@ def gameMode_redrawAll(app, canvas):
         app.player.drawElephantStill(app, canvas)
     else:
         app.player.drawElephantWalk(app, canvas)
-    

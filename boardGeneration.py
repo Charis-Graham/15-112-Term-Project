@@ -70,7 +70,7 @@ def gameMode_waterObjects(app):
                     WateringHole(app, app.boardTreeLevels[15], 
                         app.boardXCoords[15], app.boardYCoords[15])]
 
-
+#makes the elephants in the herd
 def gameMode_elephants(app):
     coords = []
     while len(coords) < 7:
@@ -122,9 +122,14 @@ def gameMode_drawGameBoard(app, canvas):
     elif app.player.lifeState == "adult":
         for item in app.elephantList:
             item.drawElephantStill(app, canvas)
+    elif app.player.lifeState == "elder":
+        gameMode_drawElephantBones(app, canvas)
 
+
+#CHALLENGES
 #creates the popups for the challenges
 def gameMode_challenges(app):
+    #Images created using Google Draw
     app.challenge1 = app.loadImage("images/challenge1.png")
     app.challenge2 = app.loadImage("images/challenge2.png")
     app.challenge3 = app.loadImage("images/challenge3.png")
@@ -136,19 +141,20 @@ def gameMode_challenges(app):
     app.challenge4 = app.scaleImage(app.challenge4, 0.75)
     app.challenge5 = app.scaleImage(app.challenge5, 0.75)
 
-
+#draws the challenge popups
 def gameMode_drawChallenge(app, canvas):
     if app.challengeCount == 1:
-        canvas.create_image(300, app.height-100, image=ImageTk.PhotoImage(app.challenge1))
+        canvas.create_image(500, app.height-100, image=ImageTk.PhotoImage(app.challenge1))
     elif app.challengeCount == 2:
-        canvas.create_image(300, app.height-100, image=ImageTk.PhotoImage(app.challenge2))
+        canvas.create_image(500, app.height-100, image=ImageTk.PhotoImage(app.challenge2))
     elif app.challengeCount == 3:
-        canvas.create_image(300, app.height-100, image=ImageTk.PhotoImage(app.challenge3))
+        canvas.create_image(500, app.height-100, image=ImageTk.PhotoImage(app.challenge3))
     elif app.challengeCount == 4:
-        canvas.create_image(300, app.height-100, image=ImageTk.PhotoImage(app.challenge4))
+        canvas.create_image(500, app.height-100, image=ImageTk.PhotoImage(app.challenge4))
     elif app.challengeCount == 5:
-        canvas.create_image(300, app.height-100, image=ImageTk.PhotoImage(app.challenge5))
+        canvas.create_image(500, app.height-100, image=ImageTk.PhotoImage(app.challenge5))
  
+#makes the statboard on the game
 def gameMode_statBoard(app, canvas):
     canvas.create_rectangle(10, 10, 150, 250, fill="white", 
                             outline="black", width =5)
@@ -159,4 +165,34 @@ def gameMode_statBoard(app, canvas):
     canvas.create_text(80, 150, text = f"Energy: {round(app.player.energy,1)}",
                         fill = "black", font='Helvetica 20 bold')
     canvas.create_text(80, 200, text = f"Age: {app.player.lifeState}",
-                        fill = "black", font='Helvetica 20 bold')            
+                        fill = "black", font='Helvetica 20 bold')   
+
+#keeps track of the challenge progression to show the player how far they are on a challenge
+def gameMode_challengeProgression(app, canvas):
+    if app.challengeCount == 1:
+        status = "No"
+    elif app.challengeCount == 2:
+        status = app.elephantIntersectCount
+    elif app.challengeCount == 3:
+        status = app.elephantFoodShared
+    elif app.challengeCount == 4:
+        status = app.elephantWaterShared
+    elif app.challengeCount == 5:
+        status = "blank"
+    canvas.create_text(855, 745, text = f"Status: {status}",
+                        fill = "black", font='Helvetica 20 bold') 
+
+#makes the elephant bones
+def gameMode_elephantBones(app):
+    app.elephantBones = app.loadImage("images/elephantBones.png")
+
+#draws the elephant bones
+def gameMode_drawElephantBones(app, canvas):
+    randomElephant = app.elephantList[random.randint(0, 6)]
+    x = randomElephant.imageX
+    y = randomElephant.imageY
+    #Traced the image from
+    #https://www.dreamstime.com/stock-illustration-digital-painting-elephant-skeleton-white-background-elephant-skeleton-watercolor-image98942298
+    #made by Svetlana Foote
+    #to make a pixel art
+    canvas.create_image(x, y, image=ImageTk.PhotoImage(randomElephant))

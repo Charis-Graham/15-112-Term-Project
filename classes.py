@@ -42,6 +42,7 @@ class Elephant(object):
         self.imageX = x
         self.imageY = y
     
+    #creates the still elephant image
     def elephantStandStill(self, app):
         self.elephantStill = self.image
         sizeIm = self.image.size
@@ -54,6 +55,7 @@ class Elephant(object):
         self.stillImageHeight = stillSize[1]
         self.stillImageWidth = stillSize[0]
     
+    #draws the elephant still
     def drawElephantStill(self, app, canvas):
         canvas.create_image(self.imageX, 
                             self.imageY,
@@ -113,13 +115,15 @@ class Elephant(object):
         canvas.create_image(self.imageX, self.imageY, 
                             image=ImageTk.PhotoImage(elephant))
     
+    #allows the player to share water
     def shareWater(self):
         self.thirst += 1
     
+    #allows the player to share food
     def shareHunger(self):
         self.hunger += 1
     
-    #Copied from game object class developed in Lecture 1
+    #Copied and modified from game object class developed in Lecture 1
     #Tuesday, November 22, 2022 by Pat Virtue
     #which was based on side scroller #3 on 
     #https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#sidescrollerExamples
@@ -132,6 +136,7 @@ class Elephant(object):
                     y1 - (self.stillImageHeight))
         return x0, y0, x1, y1
     
+    #if two objects intersect
     def intersectsObject(self, other):
         # return if intersects
         (ax0, ay0, ax1, ay1) = self.getBounds()
