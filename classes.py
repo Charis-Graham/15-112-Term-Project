@@ -12,6 +12,7 @@ class Elephant(object):
         self.thirst = thirst
         self.energy = energy
         self.travel = 0
+        self.status = "alive"
 
         #determines what direction the elephant is moving
         #loads in the elephant image
@@ -41,6 +42,10 @@ class Elephant(object):
         self.stillImageWidth = 0
         self.imageX = x
         self.imageY = y
+
+        #creates the bone image for challenge 5
+        self.boneImage = app.loadImage("images/elephantBones.png")
+        self.boneImage = app.scaleImage(self.boneImage, 0.25)
     
     #creates the still elephant image
     def elephantStandStill(self, app):
@@ -57,9 +62,17 @@ class Elephant(object):
     
     #draws the elephant still
     def drawElephantStill(self, app, canvas):
-        canvas.create_image(self.imageX, 
-                            self.imageY,
-                            image=ImageTk.PhotoImage(self.elephantStill))
+        if self.status == "dead":
+            #Traced the image from
+            #https://www.dreamstime.com/stock-illustration-digital-painting-elephant-skeleton-white-background-elephant-skeleton-watercolor-image98942298
+            #made by Svetlana Foote
+            #to make a pixel art
+            canvas.create_image(self.imageX, self.imageY, 
+                                image=ImageTk.PhotoImage(self.boneImage))
+        else:
+            canvas.create_image(self.imageX, 
+                                self.imageY,
+                                image=ImageTk.PhotoImage(self.elephantStill))
 
     #Used below as starting basis, but rewrote most of it as my own code
     #https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#loadImageUsingFile
@@ -147,18 +160,10 @@ class Elephant(object):
         else:
             return ((ax0 <= bx1) and (ax1 >= bx1) and
                     (ay0 <= by1) and (ay1 >= by0))
-    
-        #makes the elephant bones
-    def elephantBones(self, app):
-        self.image = app.loadImage("images/elephantBones.png")
 
     #draws the elephant bones
     def drawElephantBones(self, canvas):
-        #Traced the image from
-        #https://www.dreamstime.com/stock-illustration-digital-painting-elephant-skeleton-white-background-elephant-skeleton-watercolor-image98942298
-        #made by Svetlana Foote
-        #to make a pixel art
-        canvas.create_image(self.imageX, self.imageY, image=ImageTk.PhotoImage(randomElephant))
+        pass
 
                 
 #creates the watering hole class

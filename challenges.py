@@ -23,7 +23,15 @@ def gameMode_checkSharedFood(app):
 
 #challenge 5
 def gameMode_checkDeathMet(app):
-    pass
+    #keeps track of five second intervals
+    if (app.player.intersectsObject(app.deadElephant) and
+        app.timeWait >= 50 and 
+        app.challengeCount == 5):
+        app.mode = "wonMode"
+    elif (app.player.intersectsObject(app.deadElephant) and
+        app.timeWait < 50 and 
+        app.challengeCount == 5):
+        app.timeWait += 1
 
 #controls the challenges
 def gameMode_challenge(app):
@@ -45,5 +53,3 @@ def gameMode_challenge(app):
             app.player.lifeState == "adult"):
         app.challengeCount = 5
         app.player.lifeState = "elder"
-    elif (app.challengeCount == 5):
-        app.mode = "wonMode"

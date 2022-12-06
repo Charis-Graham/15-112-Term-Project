@@ -13,7 +13,6 @@ def gameMode_grass(app):
     sizeIm = app.grassImage.size
     app.grassImageHeight = sizeIm[1]
     app.grassImageWidth = sizeIm[0]
-    print(app.grassImageHeight, app.grassImageWidth)
 
     #makes the random coordinates for the water and tree objects on the board
     app.boardXCoords = ([random.randint(x, x+200) for x in range(-app.width,0, 250)]+
@@ -119,12 +118,9 @@ def gameMode_drawGameBoard(app, canvas):
     
     if app.player.lifeState == "baby":
         app.elephantList[0].drawElephantStill(app, canvas)
-    elif app.player.lifeState == "adult":
+    elif app.player.lifeState == "adult" or app.player.lifeState == "elder":
         for item in app.elephantList:
             item.drawElephantStill(app, canvas)
-    elif app.player.lifeState == "elder":
-        gameMode_deadElephant(app, canvas)
-
 
 #CHALLENGES
 #creates the popups for the challenges
@@ -171,20 +167,31 @@ def gameMode_statBoard(app, canvas):
 def gameMode_challengeProgression(app, canvas):
     if app.challengeCount == 1:
         status = "No"
+        metric = "Found:"
     elif app.challengeCount == 2:
         status = app.elephantIntersectCount
+        metric = "Met:"
     elif app.challengeCount == 3:
         status = app.elephantFoodShared
+        metric = "Shared:"
     elif app.challengeCount == 4:
         status = app.elephantWaterShared
+        metric = "Shared:"
     elif app.challengeCount == 5:
-        status = "blank"
-    canvas.create_text(855, 745, text = f"Status: {status}",
+        metric = "Timer:"
+        if app.timeWait == 0:
+            status = 0
+        elif app.timeWait < 10:
+            status = 1
+        elif app.timeWait < 20:
+            status = 2
+        elif app.timeWait < 30:
+            status = 3
+        elif app.timeWait < 40:
+            status = 4
+        elif app.timeWait <= 50:
+            status = 5
+        else:
+            status = app.timeWait
+    canvas.create_text(855, 745, text = f"{metric} {status}",
                         fill = "black", font='Helvetica 20 bold') 
-
-
-#select the dead elephant
-def gameMode_deadElephant(app, canvas):
-    randomElephant = app.elephantList[random.randint(0, 6)]
-    x = randomElephant.imageX
-    y = randomElephant.imageY

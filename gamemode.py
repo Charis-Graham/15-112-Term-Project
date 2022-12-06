@@ -22,6 +22,9 @@ def gameMode_initiate(app):
     app.elephantIntersected = []
     app.elephantFed = []
     app.elephantWater = []
+    app.deadElephants = []
+    app.deadElephant = Elephant(app, "baby", 0, 0, 0, 0, 0)
+    app.timeWait = 0
 
     #draw grass
     gameMode_grass(app)
@@ -37,7 +40,6 @@ def gameMode_initiate(app):
     #makes the gameboard and challenges elementsB
     gameMode_makeGameBoard(app)
     gameMode_challenges(app)
-    gameMode_elephantBones(app)
 
 #controls the available keyboard interactions
 def gameMode_keyPressed(app, event):
@@ -100,6 +102,13 @@ def gameMode_timerFired(app):
     gameMode_checkSharedWater(app)
     gameMode_checkSharedFood(app)
     gameMode_challenge(app)
+    gameMode_checkDeathMet(app)
+
+
+    if app.player.lifeState == "elder" and len(app.deadElephants) == 0:
+        app.deadElephant = app.elephantList[0] #app.elephantList[random.randint(0, 6)]
+        app.deadElephant.status = "dead"
+        app.deadElephants.append(app.deadElephant)
 
     #keeps the game mode from being resized
     #will probably be removed later
@@ -119,31 +128,6 @@ def gameMode_redrawAll(app, canvas):
     #initiates the challenges
     gameMode_drawChallenge(app, canvas)
     gameMode_challengeProgression(app, canvas)
-
-    x0, y0, x1, y1 = app.player.getBounds()
-    canvas.create_rectangle(x0, y0, x1, y1, fill = "green")
-    canvas.create_oval(x0, y0, x0+5, y0+5, fill = "white")
-    canvas.create_oval(x1, y1, x1+5, y1+5, fill = "black")
-
-    # for tree in app.treeList:
-    #     x, y, xa, ya = tree.getBounds()
-    #     canvas.create_rectangle(x, y, xa, ya, fill = "red")
-    #     canvas.create_oval(x, y, x+5, y+5, fill = "white")
-    #     canvas.create_oval(xa, ya, xa+5, ya+5, fill = "black")
-    
-    # for water in app.waterList:
-    #     x, y, xb, yb = water.getBounds()
-    #     canvas.create_rectangle(x, y, xb, yb, fill = "blue")
-    #     canvas.create_oval(x, y, x+5, y+5, fill = "white")
-    #     canvas.create_oval(xb, yb, xb+5, yb+5, fill = "black")
-    
-    # for elephant in app.elephantList:
-    #     x, y, xb, yb = elephant.getBounds()
-    #     canvas.create_rectangle(x, y, xb, yb, fill = "purple")
-    #     canvas.create_oval(x, y, x+5, y+5, fill = "white")
-    #     canvas.create_oval(xb, yb, xb+5, yb+5, fill = "black")
-    #     print("Hunger:", elephant.hunger, "Thirst:", elephant.thirst)
-
 
     #draws the player elephant
     if (app.player.elephantMoveLeft == False and 
