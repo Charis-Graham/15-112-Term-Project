@@ -123,7 +123,7 @@ def gameMode_drawGameBoard(app, canvas):
         for item in app.elephantList:
             item.drawElephantStill(app, canvas)
     elif app.player.lifeState == "elder":
-        gameMode_drawElephantBones(app, canvas)
+        gameMode_deadElephant(app, canvas)
 
 
 #CHALLENGES
@@ -182,17 +182,9 @@ def gameMode_challengeProgression(app, canvas):
     canvas.create_text(855, 745, text = f"Status: {status}",
                         fill = "black", font='Helvetica 20 bold') 
 
-#makes the elephant bones
-def gameMode_elephantBones(app):
-    app.elephantBones = app.loadImage("images/elephantBones.png")
 
-#draws the elephant bones
-def gameMode_drawElephantBones(app, canvas):
+#select the dead elephant
+def gameMode_deadElephant(app, canvas):
     randomElephant = app.elephantList[random.randint(0, 6)]
     x = randomElephant.imageX
     y = randomElephant.imageY
-    #Traced the image from
-    #https://www.dreamstime.com/stock-illustration-digital-painting-elephant-skeleton-white-background-elephant-skeleton-watercolor-image98942298
-    #made by Svetlana Foote
-    #to make a pixel art
-    canvas.create_image(x, y, image=ImageTk.PhotoImage(randomElephant))

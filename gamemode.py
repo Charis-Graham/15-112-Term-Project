@@ -34,7 +34,7 @@ def gameMode_initiate(app):
     app.player.elephantWalking(app)
     app.player.elephantStandStill(app)
 
-    #makes the gameboard and challenges elements
+    #makes the gameboard and challenges elementsB
     gameMode_makeGameBoard(app)
     gameMode_challenges(app)
     gameMode_elephantBones(app)

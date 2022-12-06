@@ -147,6 +147,18 @@ class Elephant(object):
         else:
             return ((ax0 <= bx1) and (ax1 >= bx1) and
                     (ay0 <= by1) and (ay1 >= by0))
+    
+        #makes the elephant bones
+    def elephantBones(self, app):
+        self.image = app.loadImage("images/elephantBones.png")
+
+    #draws the elephant bones
+    def drawElephantBones(self, canvas):
+        #Traced the image from
+        #https://www.dreamstime.com/stock-illustration-digital-painting-elephant-skeleton-white-background-elephant-skeleton-watercolor-image98942298
+        #made by Svetlana Foote
+        #to make a pixel art
+        canvas.create_image(self.imageX, self.imageY, image=ImageTk.PhotoImage(randomElephant))
 
                 
 #creates the watering hole class
