@@ -5,6 +5,7 @@ from classes import *
 from startscreen import *
 from helpscreen import *
 from gamemode import *
+from endScreen import *
 
 #initiates the basic starting elements and sets the beginning game mode
 def appStarted(app):
@@ -12,6 +13,7 @@ def appStarted(app):
     startScreenMode_initiate(app)
     helpScreenMode_initiate(app)
     gameMode_initiate(app)
+    endMode_initiate(app)
 
     #game mode based on idea from Using Modes (aka Screens) Example on
     #https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#usingModes 

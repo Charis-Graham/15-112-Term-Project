@@ -19,7 +19,7 @@ def gameMode_grass(app):
     app.boardXCoords = ([random.randint(x, x+200) for x in range(-app.width,0, 250)]+
                     [random.randint(x, x+200) for x in range(0, app.width, 250)]+
                     [random.randint(x, x+200) for x in range(app.width, 2*app.width, 250)])
-    app.boardYCoords = [random.randint(0, app.height) for y in range(16)]
+    app.boardYCoords = [random.randint(100, app.height-150) for y in range(16)]
     app.boardTreeLevels = [random.randint(70,100) for i in range(20)]
 
 #draws the background of the game
@@ -77,21 +77,17 @@ def gameMode_elephants(app):
         rand = random.randint(0, 15)
         if rand not in coords:
             coords.append(rand)
-    print(coords)
 
     app.elephantList = [
                     Elephant(app, "mom", 0, 0, 10, 
-                        app.boardXCoords[coords[0]]+30, 
-                        app.boardYCoords[coords[0]]+30),
+                        200, 
+                        200),
                     Elephant(app, "adult", 0, 0, 10, 
-                        app.boardXCoords[coords[1]]+30, 
-                        app.boardYCoords[coords[1]]+30),
+                        300, 300),
                     Elephant(app, "adult", 0, 0, 10,
-                        app.boardXCoords[coords[2]]+30, 
-                        app.boardYCoords[coords[2]]+30),
+                        500, 240),
                     Elephant(app, "adult", 0, 0, 10,
-                        app.boardXCoords[coords[3]]+30, 
-                        app.boardYCoords[coords[3]]+30),
+                        700, 400),
                     Elephant(app, "adult", 0, 0, 10, 
                         app.boardXCoords[coords[4]]+30, 
                         app.boardYCoords[coords[4]]+30),
@@ -121,10 +117,37 @@ def gameMode_drawGameBoard(app, canvas):
     for item in app.waterList:
         item.drawWater(canvas)
     
-    for item in app.elephantList:
-        item.drawElephantStill(app, canvas)
+    if app.player.lifeState == "baby":
+        app.elephantList[0].drawElephantStill(app, canvas)
+    elif app.player.lifeState == "adult":
+        for item in app.elephantList:
+            item.drawElephantStill(app, canvas)
+
+def gameMode_challenges(app):
+    app.challenge1 = app.loadImage("images/challenge1.png")
+    app.challenge2 = app.loadImage("images/challenge2.png")
+    app.challenge3 = app.loadImage("images/challenge3.png")
+    app.challenge4 = app.loadImage("images/challenge4.png")
+    app.challenge5 = app.loadImage("images/challenge5.png")
+    app.challenge1 = app.scaleImage(app.challenge1, 0.5)
+    app.challenge2 = app.scaleImage(app.challenge2, 0.5)
+    app.challenge3 = app.scaleImage(app.challenge3, 0.5)
+    app.challenge4 = app.scaleImage(app.challenge4, 0.5)
+    app.challenge5 = app.scaleImage(app.challenge5, 0.5)
 
 
+def gameMode_drawChallenge(app, canvas):
+    if app.challengeCount == 1:
+        canvas.create_image(300, app.height-100, image=ImageTk.PhotoImage(app.challenge1))
+    elif app.challengeCount == 2:
+        canvas.create_image(300, app.height-100, image=ImageTk.PhotoImage(app.challenge2))
+    elif app.challengeCount == 3:
+        canvas.create_image(300, app.height-100, image=ImageTk.PhotoImage(app.challenge3))
+    elif app.challengeCount == 4:
+        canvas.create_image(300, app.height-100, image=ImageTk.PhotoImage(app.challenge4))
+    elif app.challengeCount == 5:
+        canvas.create_image(300, app.height-100, image=ImageTk.PhotoImage(app.challenge5))
+ 
 def gameMode_statBoard(app, canvas):
     canvas.create_rectangle(10, 10, 150, 250, fill="white", 
                             outline="black", width =5)

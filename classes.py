@@ -124,6 +124,12 @@ class Elephant(object):
             self.elephantMoveDown = False
             self.elephantMoveUp = False
     
+    def shareWater(self):
+        self.thirst += 1
+    
+    def shareHunger(self):
+        self.hunger += 1
+    
     #Copied from game object class developed in Lecture 1
     #Tuesday, November 22, 2022 by Pat Virtue
     #which was based on side scroller #3 on 

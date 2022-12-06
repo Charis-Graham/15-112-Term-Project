@@ -4,6 +4,7 @@ from elephantPlayer import *
 from classes import *
 from startscreen import *
 from helpscreen import *
+from endScreen import *
 
 #initiates the game mode 
 def gameMode_initiate(app):
@@ -14,11 +15,14 @@ def gameMode_initiate(app):
 
     app.timerDelay = 1
 
+    app.challengeCount = 1
+    app.elephantIntersectCount = 0
+
     #draw grass
     gameMode_grass(app)
 
     #creates a player of class elephant
-    app.player = Elephant(app, 0, 0, 0, 100, 
+    app.player = Elephant(app, "baby", 0, 0, 10, 
                         app.width//2, app.height//2)
 
     #initializes the animations for walking and standing still
@@ -26,6 +30,7 @@ def gameMode_initiate(app):
     app.player.elephantStandStill(app)
 
     gameMode_makeGameBoard(app)
+    gameMode_challenges(app)
 
 #controls the available keyboard interactions
 def gameMode_keyPressed(app, event):
@@ -49,6 +54,18 @@ def gameMode_keyPressed(app, event):
                 if app.player.hunger > 10:
                     tree.leafLevel -= 10
                     app.player.hunger -= 10
+    
+    elif event.key == "f":
+        for elephant in app.elephantList:
+            if app.player.intersectsObject(elephant):
+                elephant.hunger += 1
+                app.player.shareHunger()
+    
+    elif event.key == "w":
+        for elephant in app.elephantList:
+            if app.player.intersectsObject(elephant):
+                elephant.thirst += 1
+                app.player.shareWater()
         
     #gets the help screen
     elif event.key == "h":
@@ -68,12 +85,49 @@ def gameMode_timerFired(app):
     app.player.spriteCounter = (1 + app.player.spriteCounter) % app.player.numFrames
 
     #gameMode_refusePlayerOverlap(app)
+    #checks if the death state is matched
+    gameMode_death(app)
+
+    #keeps track of elements for challenge 3
+    elephantIntersectCount(app)
+    checkSharedWater(app)
+    checkSharedFood(app)
+    challenge(app)
 
     #keeps the game mode from being resized
     #will probably be removed later
     if (app.width != app.helpScreen.size[0] 
         or app.height != app.helpScreen.size[1]):
         app.setSize(app.helpScreen.size[0], app.helpScreen.size[1])
+
+#keeps track of all elephants that the player has intersected with
+def elephantIntersectCount(app):
+    for elephant in app.elephantList:
+        if app.player.intersectsObject(elephant):
+            app.elephantIntersectCount += 1
+
+def checkSharedWater(app):
+    app.elephantWaterShared = 0
+    for elephant in app.elephantList:
+        if elephant.thirst > 0:
+            app.elephantWaterShared += 1
+
+def checkSharedFood(app):
+    app.elephantFoodShared = 0
+    for elephant in app.elephantList:
+        if elephant.hunger > 0:
+            app.elephantFoodShared += 1
+
+#controls the challenges
+def challenge(app):
+    if app.player.intersectsObject(app.elephantList[0]):
+        app.challengeCount = 2
+        app.player.lifeState = "adult"
+        app.player.energy = 20
+    elif app.elephantIntersectCount >= 4 and app.player.lifeState == "adult":
+        app.challengeCount = 3
+    elif app.elephantFoodShared > 3 and app.player.lifeState == "adult":
+        app.challengeCount = 4
 
 #draws the board
 def gameMode_redrawAll(app, canvas):
@@ -83,6 +137,9 @@ def gameMode_redrawAll(app, canvas):
     #generates and draws the game board
     gameMode_drawGameBoard(app, canvas)
     gameMode_statBoard(app, canvas)
+
+    #initiates the challenges
+    gameMode_drawChallenge(app, canvas)
 
     #draws the player elephant
     if (app.player.elephantMoveLeft == False and 

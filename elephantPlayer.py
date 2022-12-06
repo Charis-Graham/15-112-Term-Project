@@ -31,16 +31,25 @@ def gameMode_alterObjectPositions(app, direction):
         for water in app.waterList:
             water.X += app.xScroll
 
-# def gameMode_refusePlayerOverlap(app):
-#     for water in app.waterList:
-#         if app.player.overlap(water):
-#             return True
-#     for tree in app.treeList:
-#         if app.player.overlap(tree):
-#             return True
 
 #keyboard controls for the player to move
 def playerMove(app, event):
+    if app.player.lifeState == "baby":
+        if app.player.thirst > 10 or app.player.hunger > 12 or app.player.energy < 5:
+            moveD = 5
+        else:
+            moveD = 10
+    elif app.player.lifeState == "adult":
+        if app.player.thirst > 12 or app.player.hunger > 15 or app.player.energy < 10:
+            moveD = 5
+        else:
+            moveD = 10
+    elif app.player.lifeState == "elder":
+        if app.player.thirst > 15 or app.player.hunger > 17 or app.player.energy < 15:
+            moveD = 5
+        else:
+            moveD = 10
+
     if event.key == "Left" and app.player.imageX > -app.width:
         app.player.elephantMoveLeft = True
         app.player.elephantMoveRight = False
@@ -48,11 +57,7 @@ def playerMove(app, event):
         app.player.elephantMoveUp = False
 
         #changes the position of the player
-        app.player.imageX -= (10 + app.xScroll)
-
-        # #if move overlaps with another object, resets
-        # if gameMode_refusePlayerOverlap(app):
-        #     app.player.imageX += (10 + app.xScroll)
+        app.player.imageX -= (moveD + app.xScroll)
             
         #alters the players stats and adjusts the positions of the objects
         gameMode_changePlayerStats(app)
@@ -65,11 +70,7 @@ def playerMove(app, event):
         app.player.elephantMoveDown = False
         app.player.elephantMoveUp = False
 
-        app.player.imageX += 10 + app.xScroll
-
-        # #if move overlaps with another object, resets
-        # if gameMode_refusePlayerOverlap(app):
-        #     app.player.imageX -= (10 + app.xScroll)
+        app.player.imageX += moveD + app.xScroll
         
         gameMode_changePlayerStats(app)
         gameMode_alterObjectPositions(app, "Right")
@@ -80,11 +81,7 @@ def playerMove(app, event):
         app.player.elephantMoveRight = False
         app.player.elephantMoveUp = False
 
-        app.player.imageY += 10
-
-        # #if move overlaps with another object, resets
-        # if gameMode_refusePlayerOverlap(app):
-        #     app.player.imageY -= 10
+        app.player.imageY += moveD
         
         gameMode_changePlayerStats(app)
 
@@ -94,10 +91,7 @@ def playerMove(app, event):
         app.player.elephantMoveLeft = False
         app.player.elephantMoveRight = False
 
-        app.player.imageY -= 10
-        # #if move overlaps with another object, resets
-        # if gameMode_refusePlayerOverlap(app):
-        #     app.player.imageY += 10
+        app.player.imageY -= moveD
         
         gameMode_changePlayerStats(app)
     
@@ -111,3 +105,23 @@ def playerStill(app, event):
         app.player.elephantMoveDown = False
         app.player.elephantMoveUp = False
     gameMode_makePlayerVisible(app)
+
+#creates the conditions for death
+def gameMode_death(app):
+    # if ((app.player.hunger > 25 or 
+    #     app.player.thirst > 20 or 
+    #     app.player.energy < 2) 
+    #     and app.player.lifeState == "baby"):
+    #     app.mode = "endMode"
+    # elif ((app.player.hunger > 30 or 
+    #     app.player.thirst > 25 or 
+    #     app.player.energy < 10)
+    #     and app.player.lifeState == "adult"):
+    #     app.mode = "endMode"
+    # elif ((app.player.hunger > 35 or 
+    #     app.player.thirst > 30 or 
+    #     app.player.energy < 15) 
+    #     and app.player.lifeState == "old"):
+    #     app.mode = "endMode"
+    pass
+    
