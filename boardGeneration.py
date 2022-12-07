@@ -25,7 +25,7 @@ def gameMode_grass(app):
 def gameMode_drawGround(app, canvas):
     imageGrass = ImageTk.PhotoImage(app.grassImage)
     for dw in range(-app.width, 2*app.width, 640):
-        for dh in range(0, app.height, 640):
+        for dh in range(-app.height//2, app.height+app.height//2, 640):
             canvas.create_image(dw, dh,
                                 image = imageGrass)
 
@@ -82,11 +82,14 @@ def gameMode_elephants(app):
                         200, 
                         200),
                     Elephant(app, "adult", 0, 0, 10, 
-                        300, 300),
+                        app.boardXCoords[coords[1]]+30, 
+                        app.boardYCoords[coords[1]]+30),
                     Elephant(app, "adult", 0, 0, 10,
-                        500, 240),
+                        app.boardXCoords[coords[2]]+30, 
+                        app.boardYCoords[coords[2]]+30),
                     Elephant(app, "adult", 0, 0, 10,
-                        700, 400),
+                        app.boardXCoords[coords[3]]+30, 
+                        app.boardYCoords[coords[3]]+30),
                     Elephant(app, "adult", 0, 0, 10, 
                         app.boardXCoords[coords[4]]+30, 
                         app.boardYCoords[coords[4]]+30),

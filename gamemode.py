@@ -11,7 +11,6 @@ from challenges import *
 def gameMode_initiate(app):
 
     #create a margin for side scrolling
-    app.xScroll = 0
     app.marginScroll = 100
 
     #keeps track of which challenge the player is on
