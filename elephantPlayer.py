@@ -85,6 +85,15 @@ def playerMove(app, event):
         
         #changes the player stats
         gameMode_changePlayerStats(app) 
+
+        #checks if we do an illegal overlap
+        for tree in app.treeList:
+            if app.player.noPass(tree):
+                app.player.imageX += moveD
+    
+        for water in app.waterList:
+            if app.player.noPass(water):
+                app.player.imageX += moveD
         
 
     elif event.key == "Right":
@@ -103,8 +112,16 @@ def playerMove(app, event):
         #changes the player stats
         gameMode_changePlayerStats(app) 
 
-    elif (event.key == "Down"
-        and app.player.imageY + app.marginScroll < 3*(app.height/2)):
+        #checks if we do an illegal overlap
+        for tree in app.treeList:
+            if app.player.noPass(tree):
+                app.player.imageX -= moveD
+    
+        for water in app.waterList:
+            if app.player.noPass(water):
+                app.player.imageX -= moveD
+
+    elif (event.key == "Down"):
         app.player.elephantMoveDown = True
         app.player.elephantMoveLeft = False
         app.player.elephantMoveRight = False
@@ -119,10 +136,18 @@ def playerMove(app, event):
             gameMode_alterObjectPositions(app, "Down", moveD)
         
         #changes the player stats
-        gameMode_changePlayerStats(app)    
+        gameMode_changePlayerStats(app)   
 
-    elif (event.key == "Up" and 
-            app.player.imageY - app.marginScroll > -app.height/2):
+        #checks if we do an illegal overlap
+        for tree in app.treeList:
+            if app.player.noPass(tree):
+                app.player.imageY -= moveD
+    
+        for water in app.waterList:
+            if app.player.noPass(water):
+                app.player.imageY -= moveD 
+
+    elif (event.key == "Up"):
         app.player.elephantMoveUp = True
         app.player.elephantMoveDown = False
         app.player.elephantMoveLeft = False
@@ -137,6 +162,15 @@ def playerMove(app, event):
         
         #changes the player stats
         gameMode_changePlayerStats(app)
+
+        #checks if we do an illegal overlap
+        for tree in app.treeList:
+            if app.player.noPass(tree):
+                app.player.imageX += moveD
+    
+        for water in app.waterList:
+            if app.player.noPass(water):
+                app.player.imageX += moveD
 
 
 #defines what happens if the player is not moving

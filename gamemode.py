@@ -29,7 +29,7 @@ def gameMode_initiate(app):
     gameMode_grass(app)
 
     #creates a player of class elephant
-    app.player = Elephant(app, "baby", 0, 0, 10, 
+    app.player = Elephant(app, "baby", 0, 0, 15, 
                         app.width//2, app.height//2)
 
     #initializes the animations for walking and standing still
@@ -92,7 +92,6 @@ def gameMode_timerFired(app):
     #https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#spritesheetsWithCropping
     app.player.spriteCounter = (1 + app.player.spriteCounter) % app.player.numFrames
 
-    #gameMode_refusePlayerOverlap(app)
     #checks if the death state is matched
     gameMode_death(app)
 
@@ -102,7 +101,6 @@ def gameMode_timerFired(app):
     gameMode_checkSharedFood(app)
     gameMode_challenge(app)
     gameMode_checkDeathMet(app)
-
 
     if app.player.lifeState == "elder" and len(app.deadElephants) == 0:
         app.deadElephant = app.elephantList[0] #app.elephantList[random.randint(0, 6)]
@@ -122,11 +120,15 @@ def gameMode_redrawAll(app, canvas):
 
     #generates and draws the game board
     gameMode_drawGameBoard(app, canvas)
-    gameMode_statBoard(app, canvas)
-
-    #initiates the challenges
-    gameMode_drawChallenge(app, canvas)
-    gameMode_challengeProgression(app, canvas)
+    
+    #REMOVE
+    for tree in app.treeList:
+        x, y, x1, y1 = tree.innerBox()
+        canvas.create_rectangle(x, y, x1, y1, fill = "blue")
+    
+    for water in app.waterList:
+        x, y, x1, y1 = water.innerBox()
+        canvas.create_rectangle(x, y, x1, y1, fill = "green")
 
     #draws the player elephant
     if (app.player.elephantMoveLeft == False and 
@@ -136,3 +138,10 @@ def gameMode_redrawAll(app, canvas):
         app.player.drawElephantStill(app, canvas)
     else:
         app.player.drawElephantWalk(app, canvas)
+
+    #makes stat board
+    gameMode_statBoard(app, canvas)
+
+    #initiates the challenges
+    gameMode_drawChallenge(app, canvas)
+    gameMode_challengeProgression(app, canvas)

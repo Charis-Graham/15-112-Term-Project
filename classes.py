@@ -161,9 +161,15 @@ class Elephant(object):
             return ((ax0 <= bx1) and (ax1 >= bx1) and
                     (ay0 <= by1) and (ay1 >= by0))
 
-    #draws the elephant bones
-    def drawElephantBones(self, canvas):
-        pass
+    def noPass(self, other):
+        # return if intersects
+        (ax0, ay0, ax1, ay1) = self.getBounds()
+        (bx0, by0, bx1, by1) = other.innerBox()
+        if isinstance(other, Tree) or isinstance(other, WateringHole):
+            return ((ax0 <= bx0) and (ax1 >= bx1) and
+                    (ay0 <= by1) and (ay1 >= by0))
+        return False
+
 
                 
 #creates the watering hole class
@@ -221,13 +227,15 @@ class WateringHole(object):
         (x0, y1) = (self.X+self.imageWidth/3, self.imageHeight/2 + self.Y)
         (x1, y0) = (x0 - self.imageWidth, y1 - self.imageHeight)
         return x0, y0, x1, y1
-
-    def intersectsObject(self, other):
-        # return l2<=r1 and t2<=b1 and l1<=r2 and t1<=b2
-        (ax0, ay0, ax1, ay1) = self.getBounds()
-        (bx0, by0, bx1, by1) = other.getBounds()
-        return ((ax1 >= bx0) and (bx1 >= ax0) and
-                (ay1 >= by0) and (by1 >= ay0))
+    
+    #defines the inner box that we don't want to be able to pass through
+    def innerBox(self):
+        sizeIm = self.image.size
+        self.imageHeight = sizeIm[1]
+        self.imageWidth = sizeIm[0]
+        (x0, y1) = (self.X+self.imageWidth/4, self.imageHeight/3 + self.Y)
+        (x1, y0) = (x0 - self.imageWidth/2, y1 - self.imageHeight/2.5)
+        return x0, y0, x1, y1
     
     
 #creates the tree object
@@ -273,9 +281,8 @@ class Tree(object):
         (x1, y0) = (x0 - self.imageWidth, y1 - (self.imageHeight))
         return x0, y0, x1, y1
     
-    def intersectsObject(self, other):
-        # return l2<=r1 and t2<=b1 and l1<=r2 and t1<=b2
-        (ax0, ay0, ax1, ay1) = self.getBounds()
-        (bx0, by0, bx1, by1) = other.getBounds()
-        return ((ax1 >= bx0) and (bx1 >= ax0) and
-                (ay1 >= by0) and (by1 >= ay0))
+    #defines the inner box that we don't want to be able to pass through
+    def innerBox(self):
+        (x0, y1) = (self.X+(self.imageWidth/4.5), self.imageHeight/6 + self.Y)
+        (x1, y0) = (x0 - (self.imageWidth/4.5), y1 - (self.imageHeight/2))
+        return x0, y0, x1, y1
