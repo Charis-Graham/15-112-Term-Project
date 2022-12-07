@@ -8,8 +8,8 @@ from endScreen import *
 def wonMode_initiate(app):
     app.mode = 'wonMode'
     #image taken from
-    #https://www.vecteezy.com/vector-art/4904919-green-leaf-background-illustration-vector
-    #created by mitasukmaa
+    #https://www.reddit.com/r/pics/comments/is1xq/happy_elephant_is_happy/
+    #Posted by u/PuppyBreath (the username given with the post)
     #and modified using google draw
     app.winScreen = app.loadImage('images/winScreen.png')
     sizeOfStart = app.winScreen.size

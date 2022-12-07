@@ -31,6 +31,9 @@ def gameMode_initiate(app):
 
     app.walkCount = 0
 
+    #toggle for all game-play function for demo
+    app.isRunNormal = True
+
     #draw grass
     gameMode_grass(app)
 
@@ -84,12 +87,16 @@ def gameMode_keyPressed(app, event):
                 elephant.thirst += 1
                 app.player.shareWater()
     
+    #allows for sleep
     elif event.key == "s" and app.isNight == True:
         app.player.energy += 5
         
     #gets the help screen
     elif event.key == "h":
         app.mode = "helpScreenMode"
+    
+    elif event.key == "o":
+        app.isRunNormal = not app.isRunNormal
 
 #makes the elephant still when not moving
 def gameMode_keyReleased(app, event):

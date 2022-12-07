@@ -183,18 +183,19 @@ def playerStill(app, event):
 
 #creates the conditions for death
 def gameMode_death(app):
-    if ((app.player.hunger > 60 or 
-        app.player.thirst > 55 or 
-        app.player.energy < 2) 
-        and app.player.lifeState == "baby"):
-        app.mode = "endMode"
-    elif ((app.player.hunger > 100 or 
-        app.player.thirst > 95 or 
-        app.player.energy < 5)
-        and app.player.lifeState == "adult"):
-        app.mode = "endMode"
-    elif ((app.player.hunger > 160 or 
-        app.player.thirst > 155 or 
-        app.player.energy < 7) 
-        and app.player.lifeState == "elder"):
-        app.mode = "endMode"
+    if app.isRunNormal == True:
+        if ((app.player.hunger > 60 or 
+            app.player.thirst > 55 or 
+            app.player.energy < 2) 
+            and app.player.lifeState == "baby"):
+            app.mode = "endMode"
+        elif ((app.player.hunger > 100 or 
+            app.player.thirst > 95 or 
+            app.player.energy < 5)
+            and app.player.lifeState == "adult"):
+            app.mode = "endMode"
+        elif ((app.player.hunger > 160 or 
+            app.player.thirst > 155 or 
+            app.player.energy < 7) 
+            and app.player.lifeState == "elder"):
+            app.mode = "endMode"
