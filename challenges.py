@@ -39,7 +39,6 @@ def gameMode_challenge(app):
         app.player.lifeState == "baby"):
         app.challengeCount = 2
         app.player.lifeState = "adult"
-        app.player.energy = 20
     elif (app.challengeCount == 2 and 
             app.elephantIntersectCount >= 3 and 
             app.player.lifeState == "adult"):

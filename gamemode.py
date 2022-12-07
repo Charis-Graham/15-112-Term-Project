@@ -25,20 +25,27 @@ def gameMode_initiate(app):
     app.deadElephant = Elephant(app, "baby", 0, 0, 0, 0, 0)
     app.timeWait = 0
 
+    #used in timer fired to know when night is
+    app.nightCount = 0
+    app.isNight = False
+
     #draw grass
     gameMode_grass(app)
 
     #creates a player of class elephant
-    app.player = Elephant(app, "baby", 0, 0, 15, 
+    app.player = Elephant(app, "baby", 0, 0, 20, 
                         app.width//2, app.height//2)
 
     #initializes the animations for walking and standing still
     app.player.elephantWalking(app)
     app.player.elephantStandStill(app)
 
-    #makes the gameboard and challenges elementsB
+    #makes the gameboard and challenges elements
     gameMode_makeGameBoard(app)
     gameMode_challenges(app)
+
+    #initializes night animation
+    gameMode_night(app)
 
 #controls the available keyboard interactions
 def gameMode_keyPressed(app, event):
@@ -74,6 +81,9 @@ def gameMode_keyPressed(app, event):
             if app.player.intersectsObject(elephant):
                 elephant.thirst += 1
                 app.player.shareWater()
+    
+    elif event.key == "s" and app.isNight == True:
+        app.player.energy += 5
         
     #gets the help screen
     elif event.key == "h":
@@ -113,6 +123,14 @@ def gameMode_timerFired(app):
         or app.height != app.helpScreen.size[1]):
         app.setSize(app.helpScreen.size[0], app.helpScreen.size[1])
 
+    #deals with logic of night existing
+    app.nightCount += 1
+    if app.nightCount > 100 and app.nightCount < 125:
+        app.isNight = True
+    elif app.nightCount >= 125:
+        app.isNight = False
+        app.nightCount = 0
+
 #draws the board
 def gameMode_redrawAll(app, canvas):
     #draws the ground
@@ -120,15 +138,6 @@ def gameMode_redrawAll(app, canvas):
 
     #generates and draws the game board
     gameMode_drawGameBoard(app, canvas)
-    
-    #REMOVE
-    for tree in app.treeList:
-        x, y, x1, y1 = tree.innerBox()
-        canvas.create_rectangle(x, y, x1, y1, fill = "blue")
-    
-    for water in app.waterList:
-        x, y, x1, y1 = water.innerBox()
-        canvas.create_rectangle(x, y, x1, y1, fill = "green")
 
     #draws the player elephant
     if (app.player.elephantMoveLeft == False and 
@@ -145,3 +154,6 @@ def gameMode_redrawAll(app, canvas):
     #initiates the challenges
     gameMode_drawChallenge(app, canvas)
     gameMode_challengeProgression(app, canvas)
+
+    #draws night
+    gameMode_drawNight(app, canvas)

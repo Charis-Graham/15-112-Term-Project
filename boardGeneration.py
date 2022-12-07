@@ -8,7 +8,7 @@ def gameMode_grass(app):
     #Grass PNGs come from https://opengameart.org/content/grass-texture-pack
     #Under CC0
     #Created by Proxy Games
-    app.grassImage = app.loadImage("images/grass/grass3.jpg")
+    app.grassImage = app.loadImage("images/grass3.jpg")
     app.grassImage = app.scaleImage(app.grassImage, 20)
     sizeIm = app.grassImage.size
     app.grassImageHeight = sizeIm[1]
@@ -16,8 +16,8 @@ def gameMode_grass(app):
 
     #makes the random coordinates for the water and tree objects on the board
     app.boardXCoords = ([random.randint(x, x+200) for x in range(-app.width,0, 250)]+
-                    [random.randint(x, x+200) for x in range(0, app.width, 250)]+
-                    [random.randint(x, x+200) for x in range(app.width, 2*app.width, 250)])
+                    [random.randint(x, x+200) for x in range(250, app.width, 250)]+
+                    [random.randint(x, x+200) for x in range(app.width+250, 2*app.width, 250)])
     app.boardYCoords = [random.randint(100, app.height-150) for y in range(16)]
     app.boardTreeLevels = [random.randint(70,100) for i in range(20)]
 
@@ -198,3 +198,18 @@ def gameMode_challengeProgression(app, canvas):
             status = app.timeWait
     canvas.create_text(855, 745, text = f"{metric} {status}",
                         fill = "black", font='Helvetica 20 bold') 
+
+#NIGHT
+#makes night
+def gameMode_night(app):
+    #Made myself using Piskel app https://www.piskelapp.com/
+    app.night = app.loadImage("images/night.png")
+    app.night = app.scaleImage(app.night, 20)
+
+#draws night
+def gameMode_drawNight(app, canvas):
+    if app.isNight == True:
+        canvas.create_image(100, 100,
+                            image=ImageTk.PhotoImage(app.night))
+        canvas.create_image(600, 100,
+                            image=ImageTk.PhotoImage(app.night))
