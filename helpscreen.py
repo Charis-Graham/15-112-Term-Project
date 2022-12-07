@@ -1,5 +1,13 @@
 from cmu_112_graphics import *
 
+#All instance of app.loadImage, app.scaleImage, canvas.create_image are based on 
+#instructions from/examples given in
+#https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#loadImageUsingFile
+
+#All instance of image.size is based on this example
+#https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#imageSize
+
+
 #initiates variables for the functions
 def helpScreenMode_initiate(app):
     app.mode = 'helpScreenMode'
@@ -16,7 +24,6 @@ def helpScreenMode_initiate(app):
 #draws the help screen
 def helpScreenMode_redrawAll(app, canvas):
     canvas.create_image(app.width//2, app.height//2, image=ImageTk.PhotoImage(app.helpScreen))
-    #app.setSize(app.helpwidth, app.helpheight)
 
 #allows to go to game mode
 def helpScreenMode_keyPressed(app, event):
@@ -27,4 +34,5 @@ def helpScreenMode_keyPressed(app, event):
 def helpScreenMode_timerFired(app):
     if (app.width != app.helpScreen.size[0] 
         or app.height != app.helpScreen.size[1]):
+        #comes from examining cmu_112_graphics.py line 292
         app.setSize(app.helpScreen.size[0], app.helpScreen.size[1])

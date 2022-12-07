@@ -2,6 +2,13 @@ from cmu_112_graphics import *
 from classes import *
 import random
 
+#All instance of app.loadImage, app.scaleImage, canvas.create_image are based on 
+#instructions from/examples given in
+#https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#loadImageUsingFile
+
+#All instance of image.size is based on this example
+#https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#imageSize
+
 #GRASS BACKGROUND
 def gameMode_grass(app):
     #draws the ground

@@ -3,6 +3,13 @@ from elephantPlayer import *
 from boardGeneration import *
 import random
 
+#All instance of app.loadImage, app.scaleImage, canvas.create_image are based on 
+#instructions from/examples given in
+#https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#loadImageUsingFile
+
+#All instance of image.size is based on this example
+#https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#imageSize
+
 #creates the elephant class
 class Elephant(object):
     def __init__(self, app, lifeState, hunger, thirst, energy, x, y):

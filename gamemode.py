@@ -7,6 +7,9 @@ from helpscreen import *
 from endScreen import *
 from challenges import *
 
+#All instance of image.size is based on this example
+#https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#imageSize
+
 #initiates the game mode 
 def gameMode_initiate(app):
 
@@ -66,7 +69,7 @@ def gameMode_keyPressed(app, event):
                     water.waterLevel -= 10
                     app.player.thirst -= 10
        
-    #if the elephant eats    
+    #allows the elephant eats    
     elif event.key == "e":
         for tree in app.treeList:
             if app.player.intersectsObject(tree):
@@ -75,12 +78,14 @@ def gameMode_keyPressed(app, event):
                     tree.leafLevel -= 10
                     app.player.hunger -= 10
     
+    #allows the elephant to share food
     elif event.key == "f":
         for elephant in app.elephantList:
             if app.player.intersectsObject(elephant):
                 elephant.hunger += 1
                 app.player.shareHunger()
     
+    #allows the elephant to share water
     elif event.key == "w":
         for elephant in app.elephantList:
             if app.player.intersectsObject(elephant):
@@ -95,6 +100,7 @@ def gameMode_keyPressed(app, event):
     elif event.key == "h":
         app.mode = "helpScreenMode"
     
+    #allows for challenge demonstration by turning off death mechanics
     elif event.key == "o":
         app.isRunNormal = not app.isRunNormal
 
@@ -122,13 +128,14 @@ def gameMode_timerFired(app):
     gameMode_checkDeathMet(app)
 
     if app.player.lifeState == "elder" and len(app.deadElephants) == 0:
-        app.deadElephant = app.elephantList[0] #app.elephantList[random.randint(0, 6)]
+        app.deadElephant = app.elephantList[random.randint(0, 6)]
         app.deadElephant.status = "dead"
         app.deadElephants.append(app.deadElephant)
 
     #keeps the start screen from being resized
     if (app.width != app.startScreen.size[0] 
         or app.height != app.startScreen.size[1]):
+        #comes from examining cmu_112_graphics.py line 292
         app.setSize(app.startScreen.size[0], app.startScreen.size[1])
 
     #deals with logic of night existing

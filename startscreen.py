@@ -1,5 +1,13 @@
 from cmu_112_graphics import *
 
+#All instance of app.loadImage, app.scaleImage, canvas.create_image are based on 
+#instructions from/examples given in
+#https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#loadImageUsingFile
+
+#All instance of image.size is based on this example
+#https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#imageSize
+
+
 #creates the start screen variables
 def startScreenMode_initiate(app):
     app.mode = 'startScreenMode'
@@ -10,6 +18,7 @@ def startScreenMode_initiate(app):
     sizeOfStart = app.startScreen.size
     app.width = sizeOfStart[0]
     app.height = sizeOfStart[1]
+    #comes from examining cmu_112_graphics.py line 292
     app.setSize(app.width, app.height)
 
 #draws the start screen
@@ -28,4 +37,5 @@ def startScreenMode_keyPressed(app, event):
 def startScreenMode_timerFired(app):
     if (app.width != app.startScreen.size[0] 
         or app.height != app.startScreen.size[1]):
+        #comes from examining cmu_112_graphics.py line 292
         app.setSize(app.startScreen.size[0], app.startScreen.size[1])

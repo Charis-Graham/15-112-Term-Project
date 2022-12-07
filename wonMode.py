@@ -4,6 +4,13 @@ from helpscreen import *
 from gamemode import *
 from endScreen import *
 
+#All instance of app.loadImage, app.scaleImage, canvas.create_image are based on 
+#instructions from/examples given in
+#https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#loadImageUsingFile
+
+#All instance of image.size is based on this example
+#https://www.cs.cmu.edu/~112/notes/notes-animations-part4.html#imageSize
+
 #initiates variables for the functions
 def wonMode_initiate(app):
     app.mode = 'wonMode'
@@ -26,4 +33,5 @@ def wonMode_redrawAll(app, canvas):
 def wonMode_timerFired(app):
     if (app.width != app.winScreen.size[0] 
         or app.height != app.winScreen.size[1]):
+        #comes from examining cmu_112_graphics.py line 292
         app.setSize(app.winScreen.size[0], app.winScreen.size[1])
