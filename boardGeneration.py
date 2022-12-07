@@ -209,7 +209,5 @@ def gameMode_night(app):
 #draws night
 def gameMode_drawNight(app, canvas):
     if app.isNight == True:
-        canvas.create_image(100, 100,
-                            image=ImageTk.PhotoImage(app.night))
-        canvas.create_image(600, 100,
+        canvas.create_image(app.width//2, app.height//2,
                             image=ImageTk.PhotoImage(app.night))

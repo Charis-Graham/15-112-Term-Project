@@ -54,17 +54,17 @@ def gameMode_alterObjectPositions(app, direction, change):
 def playerMove(app, event):
     #determines metric levels at each life stage
     if app.player.lifeState == "baby":
-        if app.player.thirst > 10 or app.player.hunger > 12 or app.player.energy < 5:
+        if app.player.thirst > 40 or app.player.hunger > 30 or app.player.energy < 5:
             moveD = 5
         else:
             moveD = 10
     elif app.player.lifeState == "adult":
-        if app.player.thirst > 12 or app.player.hunger > 15 or app.player.energy < 10:
+        if app.player.thirst > 70 or app.player.hunger > 65 or app.player.energy < 10:
             moveD = 5
         else:
             moveD = 10
     elif app.player.lifeState == "elder":
-        if app.player.thirst > 15 or app.player.hunger > 17 or app.player.energy < 15:
+        if app.player.thirst > 100 or app.player.hunger > 115 or app.player.energy < 15:
             moveD = 5
         else:
             moveD = 10

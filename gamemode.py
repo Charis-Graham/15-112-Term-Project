@@ -29,6 +29,8 @@ def gameMode_initiate(app):
     app.nightCount = 0
     app.isNight = False
 
+    app.walkCount = 0
+
     #draw grass
     gameMode_grass(app)
 
@@ -117,11 +119,10 @@ def gameMode_timerFired(app):
         app.deadElephant.status = "dead"
         app.deadElephants.append(app.deadElephant)
 
-    #keeps the game mode from being resized
-    #will probably be removed later
-    if (app.width != app.helpScreen.size[0] 
-        or app.height != app.helpScreen.size[1]):
-        app.setSize(app.helpScreen.size[0], app.helpScreen.size[1])
+    #keeps the start screen from being resized
+    if (app.width != app.startScreen.size[0] 
+        or app.height != app.startScreen.size[1]):
+        app.setSize(app.startScreen.size[0], app.startScreen.size[1])
 
     #deals with logic of night existing
     app.nightCount += 1
@@ -130,6 +131,16 @@ def gameMode_timerFired(app):
     elif app.nightCount >= 125:
         app.isNight = False
         app.nightCount = 0
+    
+    #stop the player from spamming walking and overloading the system
+    if app.walkCount > 15:
+        app.player.elephantMoveLeft = False 
+        app.player.elephantMoveDown = False
+        app.player.elephantMoveRight = False
+        app.player.elephantMoveUp = False
+        app.walkCount = 0
+    else:
+        app.walkCount += 1
 
 #draws the board
 def gameMode_redrawAll(app, canvas):

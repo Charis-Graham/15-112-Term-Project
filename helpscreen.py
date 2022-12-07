@@ -8,6 +8,7 @@ def helpScreenMode_initiate(app):
     #created by mitasukmaa
     #and modified using google draw
     app.helpScreen = app.loadImage('images/helpScreen.png')
+    app.helpScreen = app.scaleImage(app.helpScreen, 2/3)
     sizeOfStart = app.helpScreen.size
     app.helpwidth = sizeOfStart[0]
     app.helpheight = sizeOfStart[1]
@@ -23,7 +24,6 @@ def helpScreenMode_keyPressed(app, event):
         app.mode = "gameMode"
 
 #keeps the helpscreen from being resized
-#will probably be removed later
 def helpScreenMode_timerFired(app):
     if (app.width != app.helpScreen.size[0] 
         or app.height != app.helpScreen.size[1]):
